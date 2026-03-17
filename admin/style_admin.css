@@ -1,0 +1,14 @@
+/* Esto obliga a los inputs a ir uno debajo de otro */
+.form-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-container input {
+    margin-bottom: 15px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid #0ff;
+    color: white;
+    font-family: 'Orbitron', sans-serif;
+}
