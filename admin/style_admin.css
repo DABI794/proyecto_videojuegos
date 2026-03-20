@@ -1,14 +1,82 @@
-/* Esto obliga a los inputs a ir uno debajo de otro */
+/* ========================================
+   STYLE_ADMIN.CSS - Formularios admin
+   ======================================== */
+
+/* Importar fuente para cuerpo de texto */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap');
+
+/* Container de formularios */
 .form-container form {
     display: flex;
     flex-direction: column;
+    gap: 16px;
+    max-width: 500px;
 }
 
-.form-container input {
-    margin-bottom: 15px;
-    padding: 10px;
-    background: rgba(0, 0, 0, 0.5);
-    border: 1px solid #0ff;
-    color: white;
-    font-family: 'Orbitron', sans-serif;
+/* Inputs */
+.form-container input,
+.form-container textarea,
+.form-container select {
+    margin-bottom: 0;
+    padding: 12px 16px;
+    background: #1e1e2f;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    color: #ffffff;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    outline: none;
+}
+
+/* Placeholder */
+.form-container input::placeholder,
+.form-container textarea::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* Focus state */
+.form-container input:focus,
+.form-container textarea:focus,
+.form-container select:focus {
+    background: #252540;
+    border-color: rgba(0, 255, 255, 0.4);
+    box-shadow: 0 0 0 3px rgba(0, 255, 255, 0.08);
+}
+
+/* Hover state */
+.form-container input:hover,
+.form-container textarea:hover,
+.form-container select:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Labels */
+.form-container label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #b8bcc4;
+    margin-bottom: 6px;
+}
+
+/* Textarea específico */
+.form-container textarea {
+    resize: vertical;
+    min-height: 100px;
+    line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    .form-container form {
+        max-width: 100%;
+    }
+    
+    .form-container input,
+    .form-container textarea,
+    .form-container select {
+        padding: 10px 14px;
+        font-size: 14px;
+    }
 }

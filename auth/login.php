@@ -78,89 +78,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login / Registro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/proyecto_videojuegos/stilos/base.css">
     <link rel="stylesheet" href="/proyecto_videojuegos/stilos/style.css">
-    <style>
-        body {
-            font-family: 'Orbitron', sans-serif;
-            background: url('/proyecto_videojuegos/assets/bg_gaming.jpg') no-repeat center center fixed;
-            background-size: cover;
-            margin: 0;
-            padding: 0;
-            color: #fff;
-        }
-
-        .form-container {
-            background: rgba(0,0,0,0.8);
-            padding: 30px;
-            border-radius: 15px;
-            max-width: 400px;
-            margin: 60px auto;
-            box-shadow: 0 0 20px #0ff;
-            animation: fadeIn 1s ease-in-out;
-        }
-
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #0ff;
-        }
-
-        input[type="text"], input[type="email"], input[type="password"] {
-            width: 100%;
-            padding: 12px;
-            margin: 8px 0;
-            border: none;
-            border-radius: 8px;
-            background: #111;
-            color: #0ff;
-        }
-
-        button {
-            width: 100%;
-            padding: 12px;
-            background: #0ff;
-            color: #000;
-            font-weight: bold;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
-        button:hover {
-            background: #00f2ff;
-        }
-
-        .toggle-link {
-            text-align: center;
-            margin-top: 15px;
-            color: #ccc;
-        }
-
-        .toggle-link a {
-            color: #0ff;
-            text-decoration: none;
-        }
-
-        .error, .exito {
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        .error {
-            color: red;
-        }
-
-        .exito {
-            color: lime;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px);}
-            to { opacity: 1; transform: translateY(0);}
-        }
-    </style>
+    <link rel="stylesheet" href="/proyecto_videojuegos/stilos/login.css">
 </head>
 <body>
     <?php include '../includes/navbar.php'; ?>

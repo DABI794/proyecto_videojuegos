@@ -7,18 +7,15 @@ $productos = $stmt->fetchAll();
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tienda de Videojuegos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/proyecto_videojuegos/stilos/base.css" />
   <link rel="stylesheet" href="/proyecto_videojuegos/stilos/style.css" />
-  <title>Tienda</title>
-  <style>
-    .card:hover {
-      transform: translateY(-10px) scale(1.02);
-      box-shadow: 0 20px 40px rgba(0, 200, 255, 0.35);
-    }
-  </style>
+  <link rel="stylesheet" href="/proyecto_videojuegos/stilos/productos.css" />
 </head>
 <body>
 

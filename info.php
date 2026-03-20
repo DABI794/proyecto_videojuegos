@@ -22,41 +22,10 @@ if (!$producto) {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title><?= htmlspecialchars($producto['nombre']) ?> - Detalles</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/proyecto_videojuegos/stilos/base.css">
   <link rel="stylesheet" href="/proyecto_videojuegos/stilos/style.css">
-  <style>
-    body {
-      background: linear-gradient(to right, #e0f7fa, #f1f8e9);
-    }
-
-    .producto-card {
-      background-color: #fff;
-      border-radius: 1rem;
-      padding: 2rem;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      transition: transform 0.3s;
-    }
-
-    .producto-card:hover {
-      transform: translateY(-5px);
-    }
-
-    .producto-img {
-      max-height: 400px;
-      object-fit: cover;
-      border-radius: 1rem;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-
-    .btn-dark {
-      transition: background-color 0.3s, transform 0.2s;
-    }
-
-    .btn-dark:hover {
-      background-color: #0d6efd;
-      transform: scale(1.05);
-    }
-  </style>
+  <link rel="stylesheet" href="/proyecto_videojuegos/stilos/detalle.css">
 </head>
 <body>
 

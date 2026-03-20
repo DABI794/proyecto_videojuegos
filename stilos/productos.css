@@ -1,0 +1,653 @@
+/* ========================================
+   PRODUCTOS.CSS - Catálogo minimalista moderno
+   ======================================== */
+
+/* Reset para sobreescribir Bootstrap */
+.container.mt-4 {
+    background: transparent !important;
+}
+
+/* Fondo específico para productos */
+body {
+    background: #0f172a !important;
+    background-color: #0f172a !important;
+    min-height: 100vh;
+}
+
+/* Container principal */
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 32px 24px;
+}
+
+.mt-4 {
+    margin-top: 24px;
+}
+
+.mb-4 {
+    margin-bottom: 24px;
+}
+
+/* ========================================
+   Catalog Header - Enhanced
+   ======================================== */
+.catalog-header {
+    text-align: center;
+    margin-bottom: 48px;
+    padding: 0 16px;
+}
+
+.catalog-header h1 {
+    font-family: 'Inter', sans-serif;
+    font-size: 42px;
+    font-weight: 800;
+    color: #f1f5f9;
+    margin: 0 0 12px 0;
+    letter-spacing: -1px;
+    line-height: 1.2;
+}
+
+.catalog-header .subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #94a3b8;
+    margin: 0;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.catalog-header .product-count {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    padding: 8px 16px;
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: 30px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #818cf8;
+}
+
+.catalog-header .product-count svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Título del catálogo (legacy support) */
+.container h2 {
+    font-family: 'Inter', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: #f1f5f9;
+    text-align: center;
+    margin-bottom: 40px;
+    letter-spacing: -0.5px;
+}
+
+/* ========================================
+   Search Filters - Enhanced
+   ======================================== */
+.search-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+    padding: 24px;
+    background: rgba(30, 41, 59, 0.5);
+    border: 1px solid #334155;
+    border-radius: 16px;
+    backdrop-filter: blur(8px);
+}
+
+.search-filters .form-control,
+.search-filters .form-select {
+    min-width: 220px;
+    background: #1e293b !important;
+}
+
+.search-filters .btn-search {
+    padding: 12px 28px !important;
+    background: #6366f1 !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 12px !important;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.search-filters .btn-search:hover {
+    background: #4f46e5 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.search-filters .btn-clear {
+    padding: 12px 20px !important;
+    background: transparent !important;
+    color: #94a3b8 !important;
+    border: 1px solid #475569 !important;
+    border-radius: 12px !important;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.search-filters .btn-clear:hover {
+    background: #334155 !important;
+    color: #f1f5f9 !important;
+    border-color: #6366f1 !important;
+}
+
+/* Filtros de búsqueda */
+.d-flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 32px;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.gap-3 {
+    gap: 12px;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.justify-content-between {
+    justify-content: space-between;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* Form controls */
+.form-control,
+.form-select {
+    padding: 12px 16px;
+    background: #1e293b !important;
+    background-color: #1e293b !important;
+    border: 1px solid #334155 !important;
+    border-radius: 12px;
+    color: #f1f5f9 !important;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+.form-control::placeholder {
+    color: #64748b !important;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #6366f1 !important;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15) !important;
+    background: #1e293b !important;
+}
+
+.form-control:hover,
+.form-select:hover {
+    border-color: #475569 !important;
+}
+
+/* Width utilities */
+.w-auto {
+    width: auto;
+    min-width: 220px;
+}
+
+/* ========================================
+   Grid de productos - MEJORADO
+   ======================================== */
+.productos-container,
+.row {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 28px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+}
+
+.col-md-4 {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    flex: none !important;
+}
+
+.col-md-4.mb-4 {
+    margin-bottom: 0 !important;
+}
+
+/* ========================================
+   Cards de producto - DISEÑO MEJORADO
+   ======================================== */
+.card {
+    background: #1e293b !important;
+    border: 1px solid #334155 !important;
+    border-radius: 16px !important;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 
+                0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+    animation: fadeInUp 0.4s ease forwards;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    border-color: #6366f1 !important;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 
+                0 10px 10px -5px rgba(0, 0, 0, 0.1),
+                0 0 0 1px rgba(99, 102, 241, 0.1) !important;
+}
+
+.card.shadow-sm.rounded {
+    border-radius: 16px !important;
+}
+
+/* ========================================
+   Imagen de la card - PROPORCIÓN FIJA
+   ======================================== */
+.card-img-top {
+    width: 100% !important;
+    height: 220px !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    background: #0f172a;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: block !important;
+}
+
+.card:hover .card-img-top {
+    transform: scale(1.05);
+}
+
+/* ========================================
+   Cuerpo de la card - ESTRUCTURA CLARA
+   ======================================== */
+.card-body {
+    padding: 20px 24px 24px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    flex: 1 !important;
+    background: #1e293b !important;
+}
+
+.card-body.text-center {
+    text-align: center !important;
+    align-items: center !important;
+}
+
+.card-title {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 17px !important;
+    font-weight: 600 !important;
+    color: #f1f5f9 !important;
+    margin: 0 0 4px 0 !important;
+    line-height: 1.4 !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    min-height: 48px;
+}
+
+.card-text {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 22px !important;
+    font-weight: 700 !important;
+    color: #6366f1 !important;
+    margin: 0 0 8px 0 !important;
+}
+
+/* ========================================
+   Card Actions - Button container
+   ======================================== */
+.card-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+}
+
+.card-actions .btn {
+    flex: 1;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px;
+}
+
+.card-actions .btn svg {
+    flex-shrink: 0;
+}
+
+.card-actions .btn-dark {
+    background: #6366f1 !important;
+    color: white !important;
+}
+
+.card-actions .btn-outline-dark {
+    background: transparent !important;
+    color: #94a3b8 !important;
+    border: 1px solid #475569 !important;
+}
+
+.card-actions .btn-outline-dark:hover {
+    background: #334155 !important;
+    color: #f1f5f9 !important;
+    border-color: #6366f1 !important;
+}
+
+/* ========================================
+   Botones dentro de las cards
+   ======================================== */
+.card-body .btn {
+    padding: 10px 18px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    font-family: 'Inter', sans-serif !important;
+    border-radius: 10px !important;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none !important;
+    outline: none;
+    text-decoration: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.btn-dark,
+.btn.btn-dark {
+    background: #6366f1 !important;
+    background-color: #6366f1 !important;
+    color: white !important;
+    border: none !important;
+}
+
+.btn-dark:hover,
+.btn.btn-dark:hover {
+    background: #4f46e5 !important;
+    background-color: #4f46e5 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.btn-dark:active {
+    transform: translateY(0);
+}
+
+.btn-outline-dark,
+.btn.btn-outline-dark {
+    background: transparent !important;
+    color: #cbd5e1 !important;
+    border: 1px solid #475569 !important;
+}
+
+.btn-outline-dark:hover,
+.btn.btn-outline-dark:hover {
+    background: #334155 !important;
+    border-color: #6366f1 !important;
+    color: #818cf8 !important;
+    transform: translateY(-2px);
+}
+
+.btn-sm {
+    padding: 8px 16px !important;
+    font-size: 13px !important;
+}
+
+.me-2 {
+    margin-right: 8px !important;
+}
+
+.mt-2 {
+    margin-top: 8px !important;
+}
+
+/* Botones de filtro */
+.d-flex > .btn,
+.d-flex button[type="submit"] {
+    padding: 12px 24px !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    font-family: 'Inter', sans-serif !important;
+    background: #6366f1 !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 12px !important;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+}
+
+.d-flex > .btn:hover,
+.d-flex button[type="submit"]:hover {
+    background: #4f46e5 !important;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
+    transform: translateY(-2px);
+}
+
+/* Badge para categorías */
+.badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(99, 102, 241, 0.15) !important;
+    color: #818cf8 !important;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Estado de botón agregado */
+.btn-dark:disabled,
+.btn.btn-dark:disabled {
+    background: #10b981 !important;
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+/* ========================================
+   Responsive
+   ======================================== */
+@media (max-width: 1200px) {
+    .productos-container,
+    .row {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 24px !important;
+    }
+}
+
+@media (max-width: 992px) {
+    .productos-container,
+    .row {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 20px !important;
+    }
+    
+    .container h2,
+    .catalog-header h1 {
+        font-size: 32px;
+    }
+    
+    .card-img-top {
+        height: 200px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 24px 16px;
+    }
+    
+    .container h2,
+    .catalog-header h1 {
+        font-size: 28px;
+        margin-bottom: 32px;
+    }
+    
+    .productos-container,
+    .row {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 16px !important;
+    }
+    
+    .d-flex,
+    .search-filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .form-control,
+    .form-select,
+    .d-flex > .btn,
+    .search-filters .btn {
+        width: 100%;
+    }
+    
+    .w-auto {
+        min-width: 100%;
+    }
+    
+    .card-img-top {
+        height: 180px !important;
+    }
+    
+    .card-body {
+        padding: 16px 20px 20px !important;
+    }
+    
+    .card-title {
+        font-size: 15px !important;
+        min-height: auto;
+    }
+    
+    .card-text {
+        font-size: 20px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .productos-container,
+    .row {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+    }
+    
+    .card-img-top {
+        height: 200px !important;
+    }
+    
+    .card-body {
+        padding: 20px !important;
+    }
+    
+    .card-title {
+        font-size: 16px !important;
+    }
+    
+    .card-text {
+        font-size: 22px !important;
+    }
+    
+    .container h2,
+    .catalog-header h1 {
+        font-size: 24px;
+    }
+}
+
+/* ========================================
+   Animación de carga
+   ======================================== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card:nth-child(1) { animation-delay: 0.05s; }
+.card:nth-child(2) { animation-delay: 0.1s; }
+.card:nth-child(3) { animation-delay: 0.15s; }
+.card:nth-child(4) { animation-delay: 0.2s; }
+.card:nth-child(5) { animation-delay: 0.25s; }
+.card:nth-child(6) { animation-delay: 0.3s; }
+
+/* Estado vacío */
+.empty-state {
+    text-align: center;
+    padding: 80px 20px;
+    color: #94a3b8;
+    background: rgba(30, 41, 59, 0.3);
+    border: 1px dashed #334155;
+    border-radius: 20px;
+    margin: 40px 0;
+}
+
+.empty-state h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #f1f5f9;
+    margin-bottom: 12px;
+}
+
+.empty-state p {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    color: #64748b;
+    margin-bottom: 0;
+}
+
+.empty-state .btn {
+    margin-top: 24px;
+}
+
+/* ========================================
+   Fix para Bootstrap grid override
+   ======================================== */
+.row > * {
+    flex-shrink: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+    margin-top: 0 !important;
+}
