@@ -415,7 +415,3 @@ PAYPAL_CLIENT_ID=          # Client ID de PayPal sandbox
 PAYPAL_CLIENT_SECRET=      # Secret de PayPal sandbox
 PAYPAL_MODE=sandbox        # sandbox | live
 ```
-
----
-
-*Proyecto migrado de PHP 8.1 nativo a Laravel 12. Refactorización completada en marzo 2026.*

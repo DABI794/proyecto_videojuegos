@@ -63,13 +63,11 @@
                                    class="p-2 text-[#64748b] hover:text-[#6366f1] hover:bg-[#6366f1]/10 rounded-lg transition-colors no-underline">
                                     <i class="bi bi-pencil"></i>
                                 </a>
-                                <form action="{{ route('admin.productos.destroy', $product) }}" method="POST"
-                                      onsubmit="return confirm('¿Eliminar {{ addslashes($product->name) }}?')">
-                                    @csrf @method('DELETE')
-                                    <button type="submit" class="p-2 text-[#64748b] hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-colors bg-transparent border-0">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </form>
+                                <button type="button" 
+                                        class="p-2 text-[#64748b] hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-colors bg-transparent border-0"
+                                        onclick="mostrarModalEliminar('{{ route('admin.productos.destroy', $product) }}', '{{ addslashes($product->name) }}')">
+                                    <i class="bi bi-trash"></i>
+                                </button>
                             </div>
                         </td>
                     </tr>
@@ -83,5 +81,61 @@
             </div>
         @endif
     </div>
+
+    {{-- Modal de confirmación para eliminar --}}
+    <div class="modal fade" id="modalEliminarProducto" tabindex="-1" aria-labelledby="modalEliminarLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-[#1e293b] border-2 border-[#334155] shadow-2xl rounded-2xl">
+                <div class="modal-header border-b border-[#334155] px-6 py-4">
+                    <h5 class="modal-title text-[#f1f5f9] font-bold text-lg flex items-center gap-2" id="modalEliminarLabel">
+                        <i class="bi bi-exclamation-triangle-fill text-red-400"></i>
+                        Confirmar eliminación
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white opacity-50 hover:opacity-100" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body px-6 py-5">
+                    <p class="text-[#94a3b8] mb-4">
+                        ¿Estás seguro de que querés eliminar este producto?
+                    </p>
+                    <div class="bg-[#0f172a] border border-[#334155] rounded-xl p-4">
+                        <p class="text-[#f1f5f9] font-semibold text-sm mb-1" id="nombreProductoEliminar">Nombre del producto</p>
+                        <p class="text-[#64748b] text-xs">Esta acción no se puede deshacer. El producto será marcado como eliminado (soft delete).</p>
+                    </div>
+                </div>
+                <div class="modal-footer border-t border-[#334155] px-6 py-4 gap-2">
+                    <button type="button" class="px-4 py-2.5 bg-[#334155] hover:bg-[#475569] text-[#f1f5f9] rounded-xl transition-colors font-medium text-sm border-0" data-bs-dismiss="modal">
+                        <i class="bi bi-x-lg me-1"></i> Cancelar
+                    </button>
+                    <form id="formEliminarProducto" method="POST" class="m-0">
+                        @csrf @method('DELETE')
+                        <button type="submit" class="px-4 py-2.5 bg-red-500 hover:bg-red-600 text-white rounded-xl transition-colors font-medium text-sm border-0">
+                            <i class="bi bi-trash me-1"></i> Eliminar producto
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+@push('scripts')
+<script>
+    let modalEliminar;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        modalEliminar = new bootstrap.Modal(document.getElementById('modalEliminarProducto'));
+    });
+    function mostrarModalEliminar(deleteUrl, productName) {
+        // Actualizar el nombre del producto en el modal
+        document.getElementById('nombreProductoEliminar').textContent = productName;
+        
+        // Actualizar la acción del formulario con la ruta correcta
+        const form = document.getElementById('formEliminarProducto');
+        form.action = deleteUrl;
+        
+        // Mostrar el modal
+        modalEliminar.show();
+    }
+</script>
+@endpush
 @endsection
