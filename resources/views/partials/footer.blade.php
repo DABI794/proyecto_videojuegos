@@ -41,7 +41,6 @@
 
         <div class="border-t border-[#334155] mt-10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3">
             <p class="text-[#64748b] text-xs">© {{ date('Y') }} GameStore Bolivia. Todos los derechos reservados.</p>
-            <p class="text-[#64748b] text-xs">Hecho con Laravel 12 + Tailwind CSS</p>
         </div>
     </div>
 </footer>
