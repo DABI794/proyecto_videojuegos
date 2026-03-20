@@ -57,11 +57,27 @@ $stmt->execute([$usuario_id]);
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Compra Exitosa</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="stilos/base.css" />
-    <link rel="stylesheet" href="stilos/factura.css" />
+    <style>
+        body {
+            background: #1a1a1a;
+            color: #00ff99;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 100px;
+        }
+        .mensaje {
+            background: #262626;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px #00ff99;
+            display: inline-block;
+        }
+        a {
+            color: #00ffff;
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <div class="mensaje">

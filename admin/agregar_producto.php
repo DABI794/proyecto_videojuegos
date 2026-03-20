@@ -24,11 +24,167 @@ $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Panel Admin - Productos</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../stilos/base.css" />
-    <link rel="stylesheet" href="../stilos/dashboard.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-cyan: #0ff;
+            --dark-bg: #121212;
+            --sidebar-color: #0a0a0a;
+            --text-gray: #b3b3b3;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            height: 100vh;
+            background-color: var(--dark-bg);
+            color: white;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 240px;
+            background-color: var(--sidebar-color);
+            border-right: 1px solid #333;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            color: var(--neon-cyan);
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            text-shadow: 0 0 5px var(--neon-cyan);
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 12px 15px;
+            color: var(--text-gray);
+            text-decoration: none;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            transition: 0.3s;
+            font-size: 14px;
+        }
+
+        .sidebar a:hover {
+            background: rgba(0, 255, 255, 0.1);
+            color: white;
+            box-shadow: inset 0 0 5px var(--neon-cyan);
+        }
+
+        .btn-logout {
+            margin-top: auto;
+            background-color: #ff4444 !important;
+            color: white !important;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .btn-logout:hover {
+            background-color: #cc0000 !important;
+            box-shadow: none !important;
+        }
+
+        /* Contenido */
+        .content {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .header-panel {
+            border-bottom: 1px solid #333;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .header-panel h2 {
+            font-family: 'Orbitron', sans-serif;
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .mensaje {
+            padding: 10px;
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        /* Formulario */
+        .formulario {
+            background: #1e1e1e;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border: 1px solid #333;
+        }
+
+        .formulario label { display: block; margin-bottom: 5px; font-size: 13px; color: var(--text-gray); }
+        
+        .formulario input, .formulario select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            background: #0a0a0a;
+            border: 1px solid #444;
+            color: white;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .formulario button {
+            padding: 12px 20px;
+            background-color: var(--neon-cyan);
+            color: black;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        /* Tabla */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #1e1e1e;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        th {
+            background: #2a2a2a;
+            color: var(--neon-cyan);
+            text-align: left;
+            padding: 15px;
+            font-size: 13px;
+            text-transform: uppercase;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #333;
+            font-size: 14px;
+        }
+
+        tr:hover { background: #252525; }
+
+        img { width: 50px; height: 50px; object-fit: cover; border-radius: 4px; border: 1px solid #444; }
+
+        .acciones a { text-decoration: none; font-size: 12px; font-weight: bold; margin-right: 10px; }
+        .edit { color: var(--neon-cyan); }
+        .delete { color: #ff4444; }
+    </style>
     <script>
         function mostrarSeccion(id) {
             document.getElementById("formulario").style.display = (id === 'formulario') ? 'block' : 'none';
@@ -92,7 +248,7 @@ $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <?php foreach ($productos as $prod): ?>
                         <tr>
                             <td><?= htmlspecialchars($prod['nombre']) ?></td>
-                            <td style="color: var(--color-primary-light); font-weight: 600;">BS <?= number_format($prod['precio'], 2) ?></td>
+                            <td style="color: var(--neon-cyan);">BS <?= number_format($prod['precio'], 2) ?></td>
                             <td>
                                 <?php if (filter_var($prod['imagen'], FILTER_VALIDATE_URL)): ?>
                                     <img src="<?= htmlspecialchars($prod['imagen']) ?>" alt="Img">
@@ -102,8 +258,8 @@ $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             </td>
                             <td><?= htmlspecialchars($prod['categoria_nombre']) ?></td>
                             <td class="acciones">
-                                <a href="editar_producto.php?id=<?= $prod['id'] ?>" class="edit">Editar</a>
-                                <a href="#" class="delete" onclick="openDeleteModal(<?= $prod['id'] ?>, '<?= htmlspecialchars($prod['nombre'], ENT_QUOTES) ?>'); return false;">Borrar</a>
+                                <a href="editar_producto.php?id=<?= $prod['id'] ?>" class="edit">EDITAR</a>
+                                <a href="agregar_producto.php?eliminar_id=<?= $prod['id'] ?>" class="delete" onclick="return confirm('¿Eliminar?')">BORRAR</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -111,63 +267,5 @@ $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </table>
         </div>
     </div>
-
-    <!-- Modal de confirmación de borrado -->
-    <div class="modal-overlay" id="deleteModal">
-        <div class="modal">
-            <div class="modal-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                </svg>
-            </div>
-            <h3>¿Eliminar producto?</h3>
-            <p id="deleteMessage">¿Estás seguro de que deseas eliminar este producto? Esta acción no se puede deshacer.</p>
-            <div class="modal-actions">
-                <button type="button" class="modal-btn-cancel" onclick="closeDeleteModal()">Cancelar</button>
-                <button type="button" class="modal-btn-delete" id="confirmDeleteBtn">Eliminar</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        let productIdToDelete = null;
-
-        function mostrarSeccion(id) {
-            document.getElementById("formulario").style.display = (id === 'formulario') ? 'block' : 'none';
-            document.getElementById("tabla").style.display = (id === 'tabla') ? 'block' : 'none';
-        }
-
-        function openDeleteModal(productId, productName) {
-            productIdToDelete = productId;
-            document.getElementById('deleteMessage').textContent = 
-                `¿Estás seguro de que deseas eliminar "${productName}"? Esta acción no se puede deshacer.`;
-            document.getElementById('deleteModal').classList.add('active');
-        }
-
-        function closeDeleteModal() {
-            document.getElementById('deleteModal').classList.remove('active');
-            productIdToDelete = null;
-        }
-
-        document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
-            if (productIdToDelete) {
-                window.location.href = `agregar_producto.php?eliminar_id=${productIdToDelete}`;
-            }
-        });
-
-        // Cerrar modal al hacer clic fuera de él
-        document.getElementById('deleteModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeDeleteModal();
-            }
-        });
-
-        // Cerrar modal con tecla Escape
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeDeleteModal();
-            }
-        });
-    </script>
 </body>
 </html>
