@@ -60,118 +60,11 @@ foreach ($items as $item) {
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Carrito de Compras</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
-        * {
-            box-sizing: border-box;
-        }
-        body {
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-            color: #f0f0f0;
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            padding: 20px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        h2 {
-            margin-bottom: 30px;
-            color: #00ffc3;
-            text-shadow: 0 0 10px #00ffc3;
-            font-weight: 700;
-        }
-        .carrito-container {
-            width: 100%;
-            max-width: 700px;
-            background: rgba(30, 30, 30, 0.9);
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 0 20px #00ffc3aa;
-        }
-        .carrito-item {
-            background: #121212;
-            border-radius: 12px;
-            padding: 15px 20px;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 0 10px #00ffc388;
-            transition: transform 0.2s ease;
-        }
-        .carrito-item:hover {
-            transform: scale(1.02);
-            box-shadow: 0 0 15px #00ffccbb;
-        }
-        .carrito-item div {
-            font-size: 1.15em;
-            font-weight: 500;
-            color: #a0f0e0;
-        }
-        .cantidad {
-            font-weight: 700;
-            color: #00ffc3;
-            margin-left: 8px;
-        }
-        form {
-            margin: 0;
-        }
-        button.eliminar-btn {
-            background: #ff4d4d;
-            border: none;
-            color: white;
-            padding: 10px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 0.9em;
-            transition: background 0.3s ease;
-        }
-        button.eliminar-btn:hover {
-            background: #ff1a1a;
-        }
-        .vacío {
-            text-align: center;
-            font-size: 1.3em;
-            color: #888;
-            margin: 60px 0;
-        }
-        h3.total {
-            text-align: center;
-            color: #00ffb0;
-            font-weight: 700;
-            margin-top: 30px;
-            font-size: 1.5em;
-            text-shadow: 0 0 8px #00ffb0;
-        }
-        #paypal-button-container {
-            margin-top: 25px;
-            text-align: center;
-        }
-        input[type="submit"].paypal-submit-btn {
-            background-color: #0070ba;
-            border: none;
-            color: white;
-            padding: 12px 28px;
-            font-size: 16px;
-            font-weight: 700;
-            border-radius: 10px;
-            cursor: pointer;
-            box-shadow: 0 0 15px #0070baaa;
-            transition: background-color 0.3s ease;
-            display: block;
-            margin: 30px auto 0 auto;
-            max-width: 250px;
-        }
-        input[type="submit"].paypal-submit-btn:hover {
-            background-color: #004f8b;
-            box-shadow: 0 0 20px #004f8baa;
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/proyecto_videojuegos/stilos/base.css">
+    <link rel="stylesheet" href="/proyecto_videojuegos/stilos/carrito.css">
 </head>
 <body>
 
@@ -186,7 +79,7 @@ foreach ($items as $item) {
             <div>
                 <?= htmlspecialchars($item['nombre']) ?> 
                 <span class="cantidad">x <?= intval($item['cantidad']) ?></span> 
-                <br><small style="color:#44ffcc;">BS <?= number_format($item['precio'], 2) ?> c/u</small>
+                <br><small style="color:#94a3b8;">BS <?= number_format($item['precio'], 2) ?> c/u</small>
             </div>
             <form method="POST" action="">
                 <input type="hidden" name="carrito_id" value="<?= $item['id'] ?>" />
