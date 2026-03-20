@@ -15,6 +15,7 @@ Plataforma de e-commerce especializada en videojuegos, consolas y accesorios gam
 - [Instalación y configuración](#instalación-y-configuración)
 - [Credenciales de prueba](#credenciales-de-prueba)
 - [Funcionalidades](#funcionalidades)
+- [Manejo de imágenes](#manejo-de-imágenes)
 - [Seguridad](#seguridad)
 
 ---
@@ -175,7 +176,46 @@ Route::middleware('auth')->group(function () {
 
 Las funcionalidades de autenticación incorporadas incluyen login, registro, cierre de sesión, recuperación de contraseña y verificación de email.
 
-### 6. Carrito de compras y AJAX
+### 6. Manejo de imágenes
+
+El sistema de imágenes fue completamente rediseñado respecto al proyecto original. En el sistema anterior, el campo `imagen` de la tabla `productos` almacenaba URLs externas de servicios como Unsplash directamente en la base de datos, lo que generaba dependencia de terceros y no permitía subida real de archivos.
+
+En el nuevo sistema, las imágenes **nunca se almacenan en la base de datos**. Lo que se guarda es únicamente la ruta relativa del archivo dentro del servidor:
+
+```
+Base de datos (campo image_path)
+→ "products/mi-imagen-1234.jpg"       ← solo el texto de la ruta
+
+Archivo físico en el servidor
+→ storage/app/public/products/mi-imagen-1234.jpg
+
+URL pública accesible en el navegador
+→ http://localhost:8000/storage/products/mi-imagen-1234.jpg
+```
+
+El flujo completo al subir una imagen desde el panel de administración es el siguiente:
+
+1. El administrador selecciona el archivo en el formulario de producto.
+2. Laravel lo guarda físicamente en `storage/app/public/products/`.
+3. En la base de datos se almacena únicamente la ruta relativa `products/nombre-archivo.jpg`.
+4. Al mostrar el producto, el accessor `getImageUrlAttribute()` del modelo `Product` construye la URL pública completa.
+
+Se implementó un **accessor con fallback** en el modelo `Product` que maneja automáticamente dos casos:
+
+```php
+public function getImageUrlAttribute(): string
+{
+    if ($this->image_path && Storage::disk('public')->exists($this->image_path)) {
+        return Storage::disk('public')->url($this->image_path);
+    }
+
+    return asset('images/default.jpg'); // imagen por defecto
+}
+```
+
+El comando `php artisan storage:link` es obligatorio en la instalación del proyecto, ya que crea el enlace simbólico `public/storage → storage/app/public` que permite al navegador acceder a los archivos físicos almacenados fuera de la carpeta pública.
+
+### 7. Carrito de compras y AJAX
 
 El archivo `carrito/agregar_ajax.php` del proyecto original fue reemplazado por el método `CartController@store`, el cual detecta automáticamente si la solicitud proviene de JavaScript o de un formulario tradicional y responde de forma apropiada en cada caso:
 
