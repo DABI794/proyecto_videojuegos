@@ -8,7 +8,10 @@ use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Route;
 
-// ── Rutas públicas ────────────────────────────────────────────────────────────
+// --------------------------------------------------------------------------
+// Public Routes
+// --------------------------------------------------------------------------
+
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
