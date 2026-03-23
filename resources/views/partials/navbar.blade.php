@@ -53,7 +53,7 @@
                     <a href="{{ route('cart.index') }}" aria-label="Ver carrito" title="Carrito"
                         class="relative p-2 text-[#94a3b8] hover:text-[#f1f5f9] transition-colors no-underline">
                         <i class="bi bi-bag text-xl"></i>
-                        @php $cartCount = auth()->user()->cartCount(); @endphp
+
                         <span id="carrito-badge"
                             class="absolute -top-0.5 -right-0.5 bg-[#6366f1] text-white text-xs font-bold rounded-full w-5 h-5 inline-flex items-center justify-center"
                             style="{{ $cartCount > 0 ? '' : 'display:none' }}">{{ $cartCount }}</span>
@@ -62,7 +62,7 @@
                     {{-- Usuario --}}
                     {{-- Dropdown de usuario controlado con Alpine.js para evitar JS inline y mejorar mantenibilidad --}}
                     <div class="relative" x-data="{ open: false }">
-                        <button @click="open = !open"
+                        <button @click="open = !open" type="button" aria-haspopup="true" :aria-expanded="open.toString()"
                             class="flex items-center gap-2 bg-[#1e293b] border border-[#334155] rounded-xl px-3 py-2 text-sm text-[#94a3b8] hover:text-[#f1f5f9] hover:border-[#475569] transition-all">
                             <i class="bi bi-person-circle"></i>
                             <span class="hidden sm:inline max-w-[100px] truncate">{{ auth()->user()->name }}</span>
