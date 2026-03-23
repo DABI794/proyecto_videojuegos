@@ -39,7 +39,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/checkout', [OrderController::class, 'store'])->name('orders.store');
     Route::patch('/mis-pedidos/{order}/cancelar', [OrderController::class, 'cancel'])->name('orders.cancel');
 
+    // Reseñas
+    Route::post('/productos/{product}/reviews', [\App\Http\Controllers\ReviewController::class, 'store'])->name('reviews.store');
+
 });
+
 
 // ── Panel de administración ───────────────────────────────────────────────────
 

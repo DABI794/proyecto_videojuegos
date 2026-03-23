@@ -107,4 +107,10 @@ class User extends Authenticatable
             ->join('products', 'cart_items.product_id', '=', 'products.id')
             ->sum(\DB::raw('cart_items.quantity * products.price'));
     }
+
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class);
+    }
 }
+
