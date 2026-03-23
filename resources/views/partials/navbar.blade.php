@@ -11,12 +11,14 @@
 
             {{-- Nav links (desktop) --}}
             <div class="hidden md:flex items-center gap-6">
+                {{-- Enlaces móviles con estado activo para mantener consistencia con la navegación desktop --}}
                 <a href="{{ route('home') }}"
-                    class="text-sm no-underline transition-colors {{ request()->routeIs('home') ? 'text-[#6366f1] font-medium' : 'text-[#94a3b8] hover:text-[#f1f5f9]' }}">
+                    class="block px-3 py-2 text-sm no-underline transition-colors {{ request()->routeIs('home') ? 'text-[#6366f1] font-medium' : 'text-[#94a3b8] hover:text-[#f1f5f9]' }}">
                     Inicio
                 </a>
+
                 <a href="{{ route('products.index') }}"
-                    class="text-sm no-underline transition-colors {{ request()->routeIs('products.*') ? 'text-[#6366f1] font-medium' : 'text-[#94a3b8] hover:text-[#f1f5f9]' }}">
+                    class="block px-3 py-2 text-sm no-underline transition-colors {{ request()->routeIs('products.*') ? 'text-[#6366f1] font-medium' : 'text-[#94a3b8] hover:text-[#f1f5f9]' }}">
                     Productos
                 </a>
                 @auth
@@ -68,10 +70,8 @@
 
 
                         {{-- Menú desplegable: se muestra con x-show y se cierra al hacer clic fuera --}}
-                        <div x-show="open" 
-                        @click.away="open = false" 
-                        x-transition
-                        class="absolute right-0 mt-2 w-48 bg-[#1e293b] border border-[#334155] rounded-xl shadow-xl overflow-hidden z-50">
+                        <div x-show="open" @click.away="open = false" x-transition
+                            class="absolute right-0 mt-2 w-48 bg-[#1e293b] border border-[#334155] rounded-xl shadow-xl overflow-hidden z-50">
                             <a href="{{ route('orders.index') }}"
                                 class="flex items-center gap-2 px-4 py-3 text-sm text-[#94a3b8] hover:bg-[#334155] hover:text-[#f1f5f9] no-underline transition-colors">
                                 <i class="bi bi-receipt"></i> Mis pedidos
