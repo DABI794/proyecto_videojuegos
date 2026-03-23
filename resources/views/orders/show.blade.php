@@ -94,22 +94,23 @@
 
 @if($order->status === 'pending')
 @push('scripts')
-<script src="https://www.paypal.com/sdk/js?client-id={{ env('PAYPAL_CLIENT_ID') }}&currency=USD"></script>
+<script src="https://www.paypal.com/sdk/js?client-id={{ config('services.paypal.client_id') }}&currency=USD"></script>
 <script>
 paypal.Buttons({
     createOrder: function(data, actions) {
         return actions.order.create({
             purchase_units: [{
-                amount: { value: '{{ $order->total }}' },
+                amount: { currency_code: 'USD', value: '{{ number_format($order->total /6.96, 2, ".", "") }}' },
                 description: 'Pedido #{{ $order->id }} — GameStore Bolivia'
             }]
         });
     },
     onApprove: function(data, actions) {
-        return actions.order.capture().then(function(details) {
-            window.location.href = '{{ route("orders.show", $order) }}?paid=1';
-        });
-    },
+    return actions.order.capture().then(function(details) {
+        alert('✅ Pago completado por ' + details.payer.name.given_name);
+        window.location.reload();
+    });
+},
     onError: function(err) {
         console.error(err);
         alert('Hubo un error con el pago. Intentá de nuevo.');
