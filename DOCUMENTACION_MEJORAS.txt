@@ -1,0 +1,68 @@
+===========================================================
+DOCUMENTACIÓN DE MEJORAS - GAMESTORE (NIVEL TRIPLE A)
+===========================================================
+
+Este documento detalla todas las mejoras técnicas y funcionales 
+implementadas para elevar la calidad del proyecto a un estándar 
+profesional, así como las propuestas para el futuro.
+
+-----------------------------------------------------------
+1. MEJORAS IMPLEMENTADAS (FASE ACTUAL)
+-----------------------------------------------------------
+
+A. ESTABILIDAD Y COMPATIBILIDAD
+- Soporte para SQLite: Configuración universal para desarrollo 
+  colaborativo sin depender de MySQL local.
+- Gestión de .env: Protección del archivo de configuración para 
+  evitar fugas de datos sensibles en el repositorio.
+
+B. EXPERIENCIA DE USUARIO (UX/UI)
+- Formateo de Precios: Implementación del trait 'HasPriceFormatting' 
+  para estandarizar la moneda en todo el sitio (Bs. X.XX).
+- Catálogo Mejorado: Botones de limpieza de filtros y contador 
+  dinámico de resultados.
+- Interactividad (Alpine.js): Menús fluidos, dropdowns animados y 
+  actualización instantánea del contador del carrito.
+
+C. FUNCIONES AVANZADAS (Nivel Triple A)
+- Sistema de Reseñas: Calificaciones con estrellas y comentarios 
+  reales por producto.
+- Emails Automáticos: Plantillas profesionales para Bienvenida y 
+  Confirmación de Compra (Markdown).
+- Pasarela de Pago (PayPal): Checkout funcional integrado con el 
+  SDK oficial de PayPal en modo Sandbox.
+
+D. GESTIÓN ADMINISTRATIVA
+- Dashboard Profesional: Panel exclusivo para administradores.
+- Gráficos Interactivos (Chart.js): Visualización de ventas de los 
+  últimos 7 días y distribución de productos por categoría.
+
+-----------------------------------------------------------
+2. MEJORAS PROPUESTAS (FASE FUTURA)
+-----------------------------------------------------------
+
+A. GESTIÓN DE PERFIL
+- Edición de datos personales y subida de Avatar.
+- Historial detallado de direcciones de envío.
+
+B. LOGÍSTICA Y PEDIDOS
+- Seguimiento de pedidos (Tracking): Notificaciones cuando el 
+  pedido cambia a 'Enviado' o 'Entregado'.
+- Generación de Factura en PDF descargable tras la compra.
+
+C. SEGURIDAD Y RENDIMIENTO
+- Implementación de Caché (Redis/File) para productos destacados.
+- Verificación de cuenta por correo electrónico (Email Verification).
+
+D. MARKETING Y FIDELIZACIÓN
+- Sistema de cupones de descuento.
+- Lista de Deseos (Wishlist) para guardar juegos favoritos.
+
+-----------------------------------------------------------
+GESTIÓN DE RAMAS (GIT)
+- Rama 'main': Proyecto original (Limpio).
+- Rama 'mejoras-colaborativas': Commits de base y estabilidad.
+- Rama 'feature/mejoras-triple-a': Contiene TODO el trabajo nuevo.
+-----------------------------------------------------------
+Documento generado el: 23 de marzo de 2026
+===========================================================
