@@ -8,7 +8,7 @@
                 <span class="text-2xl">🎮</span>
                 <span class="text-[#f1f5f9] font-semibold">GameStore</span>
             </a>
-
+            {{-- Mejora de accesibilidad: se agregan atributos ARIA para mejorar navegación y soporte de lectores de pantalla --}}
             {{-- Nav links (desktop) --}}
             <div class="hidden md:flex items-center gap-6">
                 {{-- Enlaces móviles con estado activo para mantener consistencia con la navegación desktop --}}
@@ -37,7 +37,8 @@
                 {{-- Búsqueda rápida --}}
                 <form action="{{ route('products.index') }}" method="GET" class="hidden sm:flex">
                     <div class="relative">
-                        <input type="text" name="buscar" placeholder="Buscar juegos..." value="{{ request('buscar') }}"
+                        <input type="text" name="buscar" placeholder="Buscar juegos..." aria-label="Buscar juegos"
+                            value="{{ request('buscar') }}"
                             class="bg-[#1e293b] border border-[#334155] text-[#f1f5f9] text-sm rounded-xl px-4 py-2 pr-9 w-48 focus:outline-none focus:border-[#6366f1] placeholder-[#64748b] transition-colors">
                         <button type="submit"
                             class="absolute right-2 top-1/2 -translate-y-1/2 text-[#64748b] hover:text-[#6366f1] transition-colors bg-transparent border-0">
@@ -48,7 +49,7 @@
 
                 @auth
                     {{-- Carrito --}}
-                    <a href="{{ route('cart.index') }}"
+                    <a href="{{ route('cart.index') }}" aria-label="Ver carrito" title="Carrito"
                         class="relative p-2 text-[#94a3b8] hover:text-[#f1f5f9] transition-colors no-underline">
                         <i class="bi bi-bag text-xl"></i>
                         @php $cartCount = auth()->user()->cartCount(); @endphp
@@ -104,7 +105,8 @@
                 @endauth
 
                 {{-- Menú mobile --}}
-                <button class="md:hidden p-2 text-[#94a3b8] hover:text-[#f1f5f9] bg-transparent border-0"
+                <button type="button" aria-label="Abrir menú" aria-controls="mobile-menu"
+                    class="md:hidden p-2 text-[#94a3b8] hover:text-[#f1f5f9] bg-transparent border-0"
                     onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
                     <i class="bi bi-list text-xl"></i>
                 </button>
