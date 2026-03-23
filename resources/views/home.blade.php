@@ -9,7 +9,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center max-w-3xl mx-auto">
             <span class="inline-block text-[#6366f1] text-sm font-medium bg-[#6366f1]/10 border border-[#6366f1]/20 px-4 py-1.5 rounded-full mb-6">
-                🎮 La mejor tienda gaming de Bolivia
+                🎮 La mejor tienda gaming de Bolivia creada por carlitos
             </span>
             <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#f1f5f9] leading-tight mb-6">
                 Juegos, Consolas<br>
