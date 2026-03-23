@@ -7,62 +7,56 @@ implementadas para elevar la calidad del proyecto a un estándar
 profesional, así como las propuestas para el futuro.
 
 -----------------------------------------------------------
-1. MEJORAS IMPLEMENTADAS (FASE ACTUAL)
+1. LAS 5 FUNCIONES "TRIPLE A" (IMPLEMENTADAS HOY)
 -----------------------------------------------------------
 
-A. ESTABILIDAD Y COMPATIBILIDAD
-- Soporte para SQLite: Configuración universal para desarrollo 
-  colaborativo sin depender de MySQL local.
-- Gestión de .env: Protección del archivo de configuración para 
-  evitar fugas de datos sensibles en el repositorio.
+1. SISTEMA DE RESEÑAS Y RATINGS:
+   - Los usuarios pueden calificar (1-5 estrellas) y comentar.
+   - Cálculo automático del promedio visible en la tienda.
+   - Control de seguridad: Una reseña por usuario.
 
-B. EXPERIENCIA DE USUARIO (UX/UI)
-- Formateo de Precios: Implementación del trait 'HasPriceFormatting' 
-  para estandarizar la moneda en todo el sitio (Bs. X.XX).
-- Catálogo Mejorado: Botones de limpieza de filtros y contador 
-  dinámico de resultados.
-- Interactividad (Alpine.js): Menús fluidos, dropdowns animados y 
-  actualización instantánea del contador del carrito.
+2. NOTIFICACIONES AUTOMÁTICAS POR EMAIL:
+   - Email de Bienvenida al registrarse.
+   - Email de Confirmación de Compra con resumen de productos.
+   - Configurado con driver 'log' para revisión en el servidor.
 
-C. FUNCIONES AVANZADAS (Nivel Triple A)
-- Sistema de Reseñas: Calificaciones con estrellas y comentarios 
-  reales por producto.
-- Emails Automáticos: Plantillas profesionales para Bienvenida y 
-  Confirmación de Compra (Markdown).
-- Pasarela de Pago (PayPal): Checkout funcional integrado con el 
-  SDK oficial de PayPal en modo Sandbox.
+3. PASARELA DE PAGO PAYPAL:
+   - Integración real con el SDK de PayPal en el detalle de orden.
+   - Confirmación automática del pago en la base de datos.
+   - Soporte para Modo Sandbox (Desarrollo).
 
-D. GESTIÓN ADMINISTRATIVA
-- Dashboard Profesional: Panel exclusivo para administradores.
-- Gráficos Interactivos (Chart.js): Visualización de ventas de los 
-  últimos 7 días y distribución de productos por categoría.
+4. DASHBOARD ADMINISTRATIVO CON GRÁFICOS:
+   - Panel visual con Chart.js (Ventas y Distribución).
+   - Métricas en tiempo real: Ventas, Clientes, Stock y Pedidos.
+   - Sección de Alertas (Stock bajo y Pedidos pendientes).
+
+5. INTERACTIVIDAD CON ALPINE.JS:
+   - Menús y dropdowns con animaciones de entrada/salida.
+   - Carrito dinámico: El badge se actualiza sin recargar la página.
 
 -----------------------------------------------------------
-2. MEJORAS PROPUESTAS (FASE FUTURA)
+2. MEJORAS DE ESTABILIDAD Y ESTRUCTURA
 -----------------------------------------------------------
 
-A. GESTIÓN DE PERFIL
-- Edición de datos personales y subida de Avatar.
-- Historial detallado de direcciones de envío.
+A. CONFIGURACIÓN COLABORATIVA
+- Soporte universal para SQLite y protección de .env.
+- Formateo de precios profesional en todo el catálogo (Bs.).
 
-B. LOGÍSTICA Y PEDIDOS
-- Seguimiento de pedidos (Tracking): Notificaciones cuando el 
-  pedido cambia a 'Enviado' o 'Entregado'.
-- Generación de Factura en PDF descargable tras la compra.
-
-C. SEGURIDAD Y RENDIMIENTO
-- Implementación de Caché (Redis/File) para productos destacados.
-- Verificación de cuenta por correo electrónico (Email Verification).
-
-D. MARKETING Y FIDELIZACIÓN
-- Sistema de cupones de descuento.
-- Lista de Deseos (Wishlist) para guardar juegos favoritos.
+B. LIMPIEZA Y REORGANIZACIÓN (GIT)
+Para mantener profesional el proyecto, separamos las mejoras en ramas:
+- 'main': Se dejó intacto (Original) mediante "git reset --hard".
+- 'mejoras-colaborativas': Contiene la primera fase de arreglos.
+- 'feature/mejoras-triple-a': Contiene todo nuestro trabajo avanzado.
 
 -----------------------------------------------------------
-GESTIÓN DE RAMAS (GIT)
-- Rama 'main': Proyecto original (Limpio).
-- Rama 'mejoras-colaborativas': Commits de base y estabilidad.
-- Rama 'feature/mejoras-triple-a': Contiene TODO el trabajo nuevo.
+3. COMANDOS ÚTILES PARA TU EQUIPO
 -----------------------------------------------------------
-Documento generado el: 23 de marzo de 2026
+- Ver ramas: git branch
+- Cambiar a mejoras: git checkout feature/mejoras-triple-a
+- Ver historial: git log --oneline -n 10
+- Volver al original: git checkout main
+
 ===========================================================
+Documento actualizado el: 23 de marzo de 2026
+===========================================================
+
