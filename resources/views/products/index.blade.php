@@ -9,9 +9,15 @@
         <h1 class="text-3xl font-bold text-[#f1f5f9] mb-1">
             {{ $activeCategory ? $activeCategory->name : 'Todos los productos' }}
         </h1>
-        <p class="text-[#64748b] text-sm">
-            {{ $products->total() }} producto{{ $products->total() !== 1 ? 's' : '' }} encontrado{{ $products->total() !== 1 ? 's' : '' }}
+        <p class="text-[#64748b] text-sm flex items-center gap-3">
+            <span>{{ $products->total() }} producto{{ $products->total() !== 1 ? 's' : '' }} encontrado{{ $products->total() !== 1 ? 's' : '' }}</span>
+            @if(request('buscar') || request('categoria'))
+                <a href="{{ route('products.index') }}" class="text-[#6366f1] hover:underline font-medium">
+                    <i class="bi bi-x-circle"></i> Limpiar filtros
+                </a>
+            @endif
         </p>
+
     </div>
 
     <div class="flex flex-col lg:flex-row gap-8">
