@@ -54,41 +54,51 @@
                         @php $cartCount = auth()->user()->cartCount(); @endphp
                         <span
                             id="carrito-badge"
-                            class="absolute -top-0.5 -right-0.5 bg-[#6366f1] text-white text-xs font-bold rounded-full w-5 h-5 inline-flex items-center justify-center"
+                            class="absolute -top-0.5 -right-0.5 bg-[#6366f1] text-white text-xs font-bold rounded-full w-5 h-5 inline-flex items-center justify-center transform transition-all duration-300"
                             style="{{ $cartCount > 0 ? '' : 'display:none' }}"
                         >{{ $cartCount }}</span>
                     </a>
 
                     {{-- Usuario --}}
-                    <div class="relative" x-data="{ open: false }">
+                    <div class="relative" x-data="{ open: false }" @click.away="open = false">
                         <button
-                            onclick="this.nextElementSibling.classList.toggle('hidden')"
+                            @click="open = !open"
                             class="flex items-center gap-2 bg-[#1e293b] border border-[#334155] rounded-xl px-3 py-2 text-sm text-[#94a3b8] hover:text-[#f1f5f9] hover:border-[#475569] transition-all"
                         >
                             <i class="bi bi-person-circle"></i>
                             <span class="hidden sm:inline max-w-[100px] truncate">{{ auth()->user()->name }}</span>
-                            <i class="bi bi-chevron-down text-xs"></i>
+                            <i class="bi bi-chevron-down text-xs transition-transform duration-200" :class="open ? 'rotate-180' : ''"></i>
                         </button>
 
-                        <div class="hidden absolute right-0 mt-2 w-48 bg-[#1e293b] border border-[#334155] rounded-xl shadow-xl overflow-hidden z-50">
-                            <a href="{{ route('orders.index') }}" class="flex items-center gap-2 px-4 py-3 text-sm text-[#94a3b8] hover:bg-[#334155] hover:text-[#f1f5f9] no-underline transition-colors">
+                        <div 
+                            x-show="open" 
+                            x-transition:enter="transition ease-out duration-200"
+                            x-transition:enter-start="opacity-0 translate-y-2"
+                            x-transition:enter-end="opacity-100 translate-y-0"
+                            x-transition:leave="transition ease-in duration-150"
+                            x-transition:leave-start="opacity-100 translate-y-0"
+                            x-transition:leave-end="opacity-0 translate-y-2"
+                            class="absolute right-0 mt-3 w-56 bg-[#1e293b] border border-[#334155] rounded-2xl shadow-2xl overflow-hidden z-50 p-2"
+                        >
+                            <a href="{{ route('orders.index') }}" class="flex items-center gap-3 px-4 py-3 text-sm text-[#94a3b8] hover:bg-[#334155] hover:text-[#f1f5f9] no-underline transition-all rounded-xl">
                                 <i class="bi bi-receipt"></i> Mis pedidos
                             </a>
                             @if(auth()->user()->isAdmin())
-                                <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-2 px-4 py-3 text-sm text-[#6366f1] hover:bg-[#334155] no-underline transition-colors">
+                                <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-4 py-3 text-sm text-[#6366f1] hover:bg-[#6366f1]/10 rounded-xl no-underline transition-all">
                                     <i class="bi bi-speedometer2"></i> Panel admin
                                 </a>
                             @endif
-                            <div class="border-t border-[#334155]"></div>
+                            <div class="border-t border-[#334155] my-2"></div>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <button type="submit" class="w-full flex items-center gap-2 px-4 py-3 text-sm text-red-400 hover:bg-[#334155] transition-colors bg-transparent border-0 text-left">
+                                <button type="submit" class="w-full flex items-center gap-3 px-4 py-3 text-sm text-red-400 hover:bg-red-500/10 rounded-xl transition-all bg-transparent border-0 text-left cursor-pointer">
                                     <i class="bi bi-box-arrow-right"></i> Cerrar sesión
                                 </button>
                             </form>
                         </div>
                     </div>
                 @else
+
                     <a href="{{ route('login') }}" class="text-sm text-[#94a3b8] hover:text-[#f1f5f9] no-underline transition-colors">
                         Iniciar sesión
                     </a>

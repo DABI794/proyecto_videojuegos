@@ -74,7 +74,12 @@
                 if (badge) {
                     badge.textContent = data.cantidad;
                     badge.style.display = data.cantidad > 0 ? 'inline-flex' : 'none';
+                    
+                    // Pequeña animación de rebote
+                    badge.style.transform = 'scale(1.2)';
+                    setTimeout(() => badge.style.transform = 'scale(1)', 200);
                 }
+
             } catch (e) {}
         }
 
