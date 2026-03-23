@@ -86,10 +86,12 @@ class OrderController extends Controller
                     'order_id'     => $order->id,
                     'product_id'   => $item->product->id,
                     'product_name' => $item->product->name,
+                    'product_slug' => $item->product->slug,
                     'unit_price'   => $item->product->price,
                     'quantity'     => $item->quantity,
                     'subtotal'     => $item->product->price * $item->quantity,
                 ]);
+
 
                 // Descontar stock
                 $item->product->decrementStock($item->quantity);
