@@ -8,7 +8,8 @@
                 <span class="text-2xl">🎮</span>
                 <span class="text-[#f1f5f9] font-semibold">GameStore</span>
             </a>
-            {{-- Mejora de accesibilidad: se agregan atributos ARIA para mejorar navegación y soporte de lectores de pantalla --}}
+            {{-- Mejora de accesibilidad: se agregan atributos ARIA para mejorar navegación y soporte de lectores de
+            pantalla --}}
             {{-- Nav links (desktop) --}}
             <div class="hidden md:flex items-center gap-6">
                 {{-- Enlaces móviles con estado activo para mantener consistencia con la navegación desktop --}}
@@ -115,14 +116,60 @@
 
         {{-- Mobile menu --}}
         <div id="mobile-menu" class="hidden md:hidden border-t border-[#334155] py-3 space-y-1">
+            {{-- Enlaces móviles con estado activo para mantener consistencia con la navegación desktop --}}
             <a href="{{ route('home') }}"
-                class="block px-3 py-2 text-sm text-[#94a3b8] hover:text-[#f1f5f9] no-underline">Inicio</a>
+                class="block px-3 py-2 text-sm no-underline transition-colors {{ request()->routeIs('home') ? 'text-[#6366f1] font-medium' : 'text-[#94a3b8] hover:text-[#f1f5f9]' }}">
+                Inicio
+            </a>
+
             <a href="{{ route('products.index') }}"
-                class="block px-3 py-2 text-sm text-[#94a3b8] hover:text-[#f1f5f9] no-underline">Productos</a>
+                class="block px-3 py-2 text-sm no-underline transition-colors {{ request()->routeIs('products.*') ? 'text-[#6366f1] font-medium' : 'text-[#94a3b8] hover:text-[#f1f5f9]' }}">
+                Productos
+            </a>
+
             <form action="{{ route('products.index') }}" method="GET" class="px-3 py-2">
-                <input type="text" name="buscar" placeholder="Buscar juegos..."
+                <input type="text" name="buscar" placeholder="Buscar juegos..." aria-label="Buscar juegos"
                     class="w-full bg-[#1e293b] border border-[#334155] text-[#f1f5f9] text-sm rounded-xl px-3 py-2 focus:outline-none focus:border-[#6366f1]">
             </form>
+
+            @auth
+                {{-- Opciones de usuario en mobile para mantener paridad con desktop --}}
+                <a href="{{ route('cart.index') }}"
+                    class="block px-3 py-2 text-sm text-[#94a3b8] hover:text-[#f1f5f9] no-underline transition-colors">
+                    Carrito
+                </a>
+
+                <a href="{{ route('orders.index') }}"
+                    class="block px-3 py-2 text-sm text-[#94a3b8] hover:text-[#f1f5f9] no-underline transition-colors">
+                    Mis pedidos
+                </a>
+
+                @if(auth()->user()->isAdmin())
+                    <a href="{{ route('admin.dashboard') }}"
+                        class="block px-3 py-2 text-sm text-[#6366f1] hover:text-[#818cf8] no-underline transition-colors">
+                        Panel admin
+                    </a>
+                @endif
+
+                <form method="POST" action="{{ route('logout') }}" class="px-3 py-2">
+                    @csrf
+                    <button type="submit"
+                        class="w-full text-left text-sm text-red-400 hover:text-red-300 transition-colors bg-transparent border-0 p-0">
+                        Cerrar sesión
+                    </button>
+                </form>
+            @else
+                {{-- Acciones de autenticación visibles también en mobile --}}
+                <a href="{{ route('login') }}"
+                    class="block px-3 py-2 text-sm text-[#94a3b8] hover:text-[#f1f5f9] no-underline transition-colors">
+                    Iniciar sesión
+                </a>
+
+                <a href="{{ route('register') }}"
+                    class="block mx-3 mt-2 text-center text-sm bg-[#6366f1] hover:bg-[#4f46e5] text-white px-4 py-2 rounded-xl no-underline transition-colors font-medium">
+                    Registrarse
+                </a>
+            @endauth
         </div>
     </div>
 </nav>
