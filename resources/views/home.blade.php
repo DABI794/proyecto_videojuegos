@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'GameStore Bolivia — Videojuegos y Accesorios')
+@section('title', 'bienbenida por carlos — Videojuegos y Accesorios ')
 
 @section('content')
 
