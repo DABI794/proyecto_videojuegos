@@ -100,8 +100,16 @@ class OrderController extends Controller
             // Vaciar carrito
             $user->cartItems()->delete();
 
+            // Enviar email de confirmación
+            try {
+                \Illuminate\Support\Facades\Mail::to($user)->send(new \App\Mail\OrderConfirmationMail($order));
+            } catch (\Exception $e) {
+                // Continuar aunque falle el mail en local
+            }
+
             // Guardar ID de orden en sesión para redirigir a PayPal
             session(['pending_order_id' => $order->id]);
+
         });
 
         $orderId = session('pending_order_id');
