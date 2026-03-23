@@ -1,62 +1,67 @@
 ===========================================================
-DOCUMENTACIÓN DE MEJORAS - GAMESTORE (NIVEL TRIPLE A)
+DOCUMENTACIÓN DE MEJORAS - GAMESTORE (PROYECTO COMPLETO)
 ===========================================================
 
-Este documento detalla todas las mejoras técnicas y funcionales 
-implementadas para elevar la calidad del proyecto a un estándar 
-profesional, así como las propuestas para el futuro.
+Este documento detalla los dos grandes bloques de mejoras 
+implementadas para transformar el proyecto original en una 
+plataforma e-commerce de alto nivel.
 
 -----------------------------------------------------------
-1. LAS 5 FUNCIONES "TRIPLE A" (IMPLEMENTADAS HOY)
+FASE 1: MEJORAS COLABORATIVAS (ESENCIALES)
 -----------------------------------------------------------
 
-1. SISTEMA DE RESEÑAS Y RATINGS:
-   - Los usuarios pueden calificar (1-5 estrellas) y comentar.
-   - Cálculo automático del promedio visible en la tienda.
-   - Control de seguridad: Una reseña por usuario.
+1. SOPORTE MULTI-BASE DE DATOS (SQLite):
+   - Configuración universal para que cualquier miembro del equipo 
+     pueda trabajar sin configurar MySQL localmente.
 
-2. NOTIFICACIONES AUTOMÁTICAS POR EMAIL:
-   - Email de Bienvenida al registrarse.
-   - Email de Confirmación de Compra con resumen de productos.
-   - Configurado con driver 'log' para revisión en el servidor.
+2. PROTECCIÓN DE CONFIGURACIÓN (.env):
+   - Ocultamiento de datos sensibles para evitar fugas en el repositorio.
 
-3. PASARELA DE PAGO PAYPAL:
-   - Integración real con el SDK de PayPal en el detalle de orden.
-   - Confirmación automática del pago en la base de datos.
-   - Soporte para Modo Sandbox (Desarrollo).
+3. ESTANDARIZACIÓN DE MONEDA (Trait 'HasPriceFormatting'):
+   - Unificación de precios en todo el sistema bajo el formato 'Bs. X.XX'.
 
-4. DASHBOARD ADMINISTRATIVO CON GRÁFICOS:
-   - Panel visual con Chart.js (Ventas y Distribución).
-   - Métricas en tiempo real: Ventas, Clientes, Stock y Pedidos.
-   - Sección de Alertas (Stock bajo y Pedidos pendientes).
+4. MEJORA DE CATÁLOGO:
+   - Botón 'Limpiar filtros' y contador dinámico de resultados.
 
-5. INTERACTIVIDAD CON ALPINE.JS:
-   - Menús y dropdowns con animaciones de entrada/salida.
-   - Carrito dinámico: El badge se actualiza sin recargar la página.
+5. PERSISTENCIA DE PRODUCTOS (Slug Snapshot):
+   - Registro permanente del nombre y slug del producto en los pedidos, 
+     evitando que se pierdan datos si el producto se borra.
+
+6. DIRECTIVA BLADE '@money':
+   - Facilidad para los desarrolladores de imprimir precios con formato 
+     profesional en cualquier parte del sitio.
 
 -----------------------------------------------------------
-2. MEJORAS DE ESTABILIDAD Y ESTRUCTURA
+FASE 2: FUNCIONES "TRIPLE A" (AVANZADAS)
 -----------------------------------------------------------
 
-A. CONFIGURACIÓN COLABORATIVA
-- Soporte universal para SQLite y protección de .env.
-- Formateo de precios profesional en todo el catálogo (Bs.).
+7. SISTEMA DE RESEÑAS Y RATINGS:
+   - Calificaciones con estrellas y comentarios por juego.
+   - Cálculo de promedio de satisfacción automático.
 
-B. LIMPIEZA Y REORGANIZACIÓN (GIT)
-Para mantener profesional el proyecto, separamos las mejoras en ramas:
-- 'main': Se dejó intacto (Original) mediante "git reset --hard".
-- 'mejoras-colaborativas': Contiene la primera fase de arreglos.
-- 'feature/mejoras-triple-a': Contiene todo nuestro trabajo avanzado.
+8. NOTIFICACIONES AUTOMÁTICAS POR EMAIL:
+   - Email de Bienvenida y Confirmación de Compra (Markdown).
+
+9. PASARELA DE PAGO PAYPAL:
+   - Checkout funcional con SDK oficial en modo Sandbox.
+   - Sincronización automática de estado de pago.
+
+10. DASHBOARD ADMINISTRATIVO CON GRÁFICOS:
+    - Uso de Chart.js para visualizar ventas de los últimos 7 días.
+    - Gráfico doughnut para distribución de stock por categoría.
+
+11. INTERACTIVIDAD CON ALPINE.JS:
+    - Dropdowns animados y actualización reactiva del carrito (badge).
 
 -----------------------------------------------------------
-3. COMANDOS ÚTILES PARA TU EQUIPO
+GESTIÓN DE RAMAS EN GITHUB
 -----------------------------------------------------------
-- Ver ramas: git branch
-- Cambiar a mejoras: git checkout feature/mejoras-triple-a
-- Ver historial: git log --oneline -n 10
-- Volver al original: git checkout main
+- 'main': Proyecto original intacto.
+- 'mejoras-colaborativas': Contiene la Fase 1.
+- 'feature/mejoras-triple-a': Contiene FASE 1 + FASE 2 (Proyecto final).
 
 ===========================================================
-Documento actualizado el: 23 de marzo de 2026
+Documento finalizado el: 23 de marzo de 2026
 ===========================================================
+
 
