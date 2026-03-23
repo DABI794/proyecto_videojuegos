@@ -27,7 +27,8 @@ curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
 sudo apt install -y nodejs
 ```
 
-### 4. MySQL Server
+### 4. MySQL Server (Opcional)
+Aunque el proyecto está configurado por defecto para usar **SQLite**, puedes instalar MySQL si prefieres usarlo en el futuro:
 ```bash
 sudo apt install mysql-server
 ```
@@ -44,7 +45,8 @@ sudo apt install mysql-server
    npm install
    ```
 4. **Configurar el entorno**:
-   - El archivo `.env` ya ha sido organizado. Asegúrate de configurar las credenciales de tu base de datos local en `.env`.
+   - El archivo `.env` ya ha sido configurado para usar **SQLite**. 
+   - Se ha creado automáticamente el archivo `database/database.sqlite`.
 5. **Generar la clave de la aplicación**:
    ```bash
    php artisan key:generate
@@ -53,6 +55,7 @@ sudo apt install mysql-server
    ```bash
    php artisan migrate
    ```
+
 7. **Compilar assets**:
    ```bash
    npm run dev
