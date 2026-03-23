@@ -30,7 +30,8 @@
 
         {{-- Precio + Stock --}}
         <div class="flex items-center justify-between mb-3">
-            <span class="text-[#6366f1] font-bold text-lg">{{ $product->formatted_price }}</span>
+            <span class="text-[#6366f1] font-bold text-lg">@money($product->price)</span>
+
             @if($product->isInStock())
                 <span class="text-xs text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded-full">
                     En stock
