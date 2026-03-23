@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Traits\HasPriceFormatting;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class OrderItem extends Model
 {
-    use HasFactory;
+    use HasFactory, HasPriceFormatting;
 
     protected $fillable = [
         'order_id',
@@ -51,11 +52,12 @@ class OrderItem extends Model
 
     public function getFormattedUnitPriceAttribute(): string
     {
-        return 'Bs. ' . number_format((float) $this->unit_price, 2, '.', ',');
+        return $this->formatPrice($this->unit_price);
     }
 
     public function getFormattedSubtotalAttribute(): string
     {
-        return 'Bs. ' . number_format((float) $this->subtotal, 2, '.', ',');
+        return $this->formatPrice($this->subtotal);
     }
+
 }
