@@ -8,15 +8,4 @@ export default defineConfig({
             refresh: true,
         }),
     ],
-    build: {
-        outDir: '../backend/public/build',
-        emptyOutDir: true,
-        manifest: true,
-    },
-    base: '/build/',
-    server: {
-        host: 'localhost',
-        port: 5173,
-        strictPort: true,
-    },
 });
