@@ -1,0 +1,21 @@
+:root {
+  /* Colors */
+  --color-primary: #0f172a;
+  --color-secondary: #7c3aed;
+  --color-accent: #06b6d4;
+  --color-bg: #f8fafc;
+  --color-text: #0f172a;
+
+  /* Typography */
+  --font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-size-base: 16px;
+
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+}
+
+/* Helper classes (opcionales) */
+.brand-text { color: var(--color-primary); font-family: var(--font-sans); }
