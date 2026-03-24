@@ -1,0 +1,21 @@
+:root {
+  /* Colores */
+  --color-primario: #0f172a;
+  --color-secundario: #7c3aed;
+  --color-acento: #06b6d4;
+  --color-fondo: #f8fafc;
+  --color-texto: #0f172a;
+
+  /* Tipografía */
+  --fuente-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --tamano-base: 16px;
+
+  /* Espaciado */
+  --espacio-xs: 4px;
+  --espacio-sm: 8px;
+  --espacio-md: 16px;
+  --espacio-lg: 24px;
+}
+
+/* Clases de ayuda (opcionales) */
+.marca-texto { color: var(--color-primario); font-family: var(--fuente-sans); }
