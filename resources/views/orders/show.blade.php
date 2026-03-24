@@ -106,11 +106,27 @@ paypal.Buttons({
         });
     },
     onApprove: function(data, actions) {
-    return actions.order.capture().then(function(details) {
-        alert('✅ Pago completado por ' + details.payer.name.given_name);
-        window.location.reload();
-    });
-},
+        return actions.order.capture().then(function(details) {
+            // Llamar al backend para confirmar el pago
+            fetch('{{ route("paypal.success", $order) }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({
+                    paypal_order_id: data.orderID
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.exito) {
+                    window.location.href = '{{ route("orders.show", $order) }}?success=1';
+                }
+            });
+        });
+    },
+
     onError: function(err) {
         console.error(err);
         alert('Hubo un error con el pago. Intentá de nuevo.');

@@ -160,4 +160,14 @@ class Product extends Model
     {
         return 'slug';
     }
+
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    public function averageRating(): float
+    {
+        return (float) $this->reviews()->avg('rating');
+    }
 }

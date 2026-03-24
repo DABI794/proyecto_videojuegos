@@ -38,6 +38,20 @@
 
             <h1 class="text-3xl font-bold text-[#f1f5f9] mb-4">{{ $product->name }}</h1>
 
+            {{-- Calificación promedio --}}
+            @if($product->reviews()->count() > 0)
+                <div class="flex items-center gap-2 mb-4">
+                    <div class="flex text-yellow-400">
+                        @for($i = 1; $i <= 5; $i++)
+                            <i class="bi bi-star-fill {{ $i <= $product->averageRating() ? '' : 'text-[#334155]' }}"></i>
+                        @for($i = 1; $i <= 5; $i++)
+                        @endfor
+                    </div>
+                    <span class="text-sm text-[#94a3b8]">({{ $product->reviews()->count() }} reseñas)</span>
+                </div>
+            @endif
+
+
             {{-- Precio --}}
             <div class="flex items-center gap-4 mb-6">
                 <span class="text-4xl font-extrabold text-[#6366f1]">{{ $product->formatted_price }}</span>
@@ -102,8 +116,86 @@
         </div>
     @endif
 
+    {{-- Reseñas --}}
+    <div class="mt-16 border-t border-[#334155] pt-16">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            
+            {{-- Formulario de reseña --}}
+            <div class="lg:col-span-1">
+                <h3 class="text-xl font-bold text-[#f1f5f9] mb-6">Deja tu opinión</h3>
+                
+                @auth
+                    <form action="{{ route('reviews.store', $product) }}" method="POST" class="space-y-4">
+                        @csrf
+                        <div>
+                            <label class="block text-sm text-[#94a3b8] mb-2">Calificación</label>
+                            <select name="rating" class="w-full bg-[#1e293b] border border-[#334155] text-[#f1f5f9] rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#6366f1] focus:outline-none">
+                                <option value="5">⭐⭐⭐⭐⭐ (Excelente)</option>
+                                <option value="4">⭐⭐⭐⭐ (Muy bueno)</option>
+                                <option value="3">⭐⭐⭐ (Bueno)</option>
+                                <option value="2">⭐⭐ (Regular)</option>
+                                <option value="1">⭐ (Malo)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm text-[#94a3b8] mb-2">Tu comentario</label>
+                            <textarea name="comment" rows="4" class="w-full bg-[#1e293b] border border-[#334155] text-[#f1f5f9] rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#6366f1] focus:outline-none placeholder:text-[#475569]" placeholder="Cuéntanos qué te pareció el juego..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-[#6366f1] hover:bg-[#4f46e5] text-white font-semibold py-3 rounded-xl transition-all">
+                            Enviar reseña
+                        </button>
+                    </form>
+                @else
+                    <div class="bg-[#1e293b]/50 border border-[#334155] rounded-2xl p-6 text-center">
+                        <p class="text-[#94a3b8] mb-4">Debes iniciar sesión para dejar una reseña.</p>
+                        <a href="{{ route('login') }}" class="inline-block text-[#6366f1] font-semibold hover:underline">Iniciar sesión</a>
+                    </div>
+                @endauth
+            </div>
+
+            {{-- Lista de reseñas --}}
+            <div class="lg:col-span-2">
+                <h3 class="text-xl font-bold text-[#f1f5f9] mb-6">Reseñas de la comunidad</h3>
+                
+                @if($product->reviews()->count() > 0)
+                    <div class="space-y-6">
+                        @foreach($product->reviews()->with('user')->latest()->get() as $review)
+                            <div class="bg-[#1e293b] border border-[#334155] rounded-2xl p-6">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-full bg-[#334155] flex items-center justify-center text-[#6366f1] font-bold">
+                                            {{ substr($review->user->name, 0, 1) }}
+                                        </div>
+                                        <div>
+                                            <p class="text-[#f1f5f9] font-semibold text-sm">{{ $review->user->name }}</p>
+                                            <p class="text-[#64748b] text-xs">{{ $review->created_at->diffForHumans() }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex text-yellow-400 text-xs">
+                                        @for($i = 1; $i <= 5; $i++)
+                                            <i class="bi bi-star-fill {{ $i <= $review->rating ? '' : 'text-[#334155]' }}"></i>
+                                        @endfor
+                                    </div>
+                                </div>
+                                @if($review->comment)
+                                    <p class="text-[#94a3b8] text-sm leading-relaxed">{{ $review->comment }}</p>
+                                @endif
+                            </div>
+                        @endforeach
+                    </div>
+                @else
+                    <div class="text-center py-12 bg-[#1e293b]/30 rounded-2xl border border-dashed border-[#334155]">
+                        <i class="bi bi-chat-dots text-4xl text-[#334155] mb-4 block"></i>
+                        <p class="text-[#64748b]">Aún no hay reseñas para este producto. ¡Sé el primero en opinar!</p>
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
+
 </div>
 @endsection
+
 
 @push('scripts')
 <script>
