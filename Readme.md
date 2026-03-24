@@ -392,37 +392,6 @@ php artisan serve
 
 La aplicación estará disponible en `http://localhost:8000`.
 
-## Cómo ejecutar (separado)
-
-Este repositorio ahora está separado en dos carpetas:
-
-- `backend/` — aplicación Laravel completa.
-- `frontend/` — carpeta con los assets y configuración de Vite/Tailwind.
-
-Arranque rápido en desarrollo:
-
-1. Backend (desde la raíz `backend/`):
-
-```bash
-cd backend
-composer install
-cp .env.example .env
-php artisan key:generate
-php artisan migrate
-php artisan storage:link
-php artisan serve --host=127.0.0.1 --port=8000
-```
-
-2. Frontend (desde la raíz `frontend/`):
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-Cuando `npm run dev` esté en ejecución, Vite servirá los assets en modo desarrollo y Laravel los consumirá a través del plugin; al construir (`npm run build`) los archivos se colocarán en `backend/public/build`.
-
 ---
 
 ## Credenciales de prueba
