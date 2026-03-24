@@ -19,7 +19,8 @@
 
     @stack('styles')
 </head>
-<body class="bg-[#0f172a] text-[#f1f5f9] font-sans min-h-screen">
+{{-- bg-surface-darkest ahora aplicará el color #2a3b1e (verde oscuro) --}}
+<body class="bg-surface-darkest text-white font-sans min-h-screen">
 
     {{-- Navbar --}}
     @include('partials.navbar')

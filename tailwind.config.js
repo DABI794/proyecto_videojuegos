@@ -8,14 +8,15 @@ export default {
     extend: {
       colors: {
         brand: {
-          DEFAULT: '#6366f1',
-          hover:   '#4f46e5',
-          light:   '#818cf8',
+          DEFAULT: '#efcc08',
+          hover:   '#1cf0e2',
+          light:   '#a5c129',
         },
         surface: {
-          darkest: '#0f172a',
-          dark:    '#1e293b',
-          medium:  '#334155',
+          /* Cambiamos los tonos aquí para que sean menos oscuros */
+          darkest: '#2a3b1e', // Antes era #0f172a
+          dark:    '#c87816', // Antes era #1e293b
+          medium:  '#694764', // Antes era #334155
         },
       },
       fontFamily: {
