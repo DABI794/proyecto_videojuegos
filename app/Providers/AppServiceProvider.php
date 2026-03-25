@@ -6,6 +6,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Blade; 
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -17,7 +18,11 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        // Compartir el contador del carrito con todas las vistas
+        Blade::directive('money', function ($expression) {
+            return "<?php echo 'Bs. ' . number_format($expression, 2, '.', ','); ?>";
+        });
+
+        // Compartir el contador del carrito con todas las vistas (Tu código original intacto)
         View::composer('*', function ($view) {
             $cartCount = 0;
             if (Auth::check()) {
