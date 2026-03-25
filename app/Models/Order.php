@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Traits\HasPriceFormatting;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Order extends Model
 {
-    use HasFactory;
+    use HasFactory, HasPriceFormatting;
 
     protected $fillable = [
         'user_id',
@@ -61,8 +62,14 @@ class Order extends Model
 
     public function getFormattedTotalAttribute(): string
     {
-        return 'Bs. ' . number_format((float) $this->total, 2, '.', ',');
+        return $this->formatPrice($this->total);
     }
+
+    public function getFormattedSubtotalAttribute(): string
+    {
+        return $this->formatPrice($this->subtotal);
+    }
+
 
     /**
      * Etiqueta legible del estado (en español, para las vistas).

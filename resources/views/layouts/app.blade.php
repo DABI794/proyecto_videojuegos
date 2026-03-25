@@ -14,7 +14,11 @@
     {{-- Bootstrap Icons --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 
+    {{-- Alpine.js --}}
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
     {{-- Vite: Tailwind CSS + JS --}}
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     @stack('styles')
@@ -71,7 +75,12 @@
                 if (badge) {
                     badge.textContent = data.cantidad;
                     badge.style.display = data.cantidad > 0 ? 'inline-flex' : 'none';
+                    
+                    // Pequeña animación de rebote
+                    badge.style.transform = 'scale(1.2)';
+                    setTimeout(() => badge.style.transform = 'scale(1)', 200);
                 }
+
             } catch (e) {}
         }
 

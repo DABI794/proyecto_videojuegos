@@ -8,38 +8,39 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class DashboardController extends Controller
 {
-    /**
-     * Panel de administración — reemplaza admin/productos.php del proyecto original.
-     */
     public function index(): View
     {
+        // Métricas básicas
         $stats = [
-            'total_products' => Product::active()->count(),
-            'total_users'    => User::where('role', 'customer')->count(),
-            'total_orders'   => Order::count(),
-            'total_revenue'  => Order::where('status', '!=', Order::STATUS_CANCELLED)
-                                     ->where('status', '!=', Order::STATUS_PENDING)
-                                     ->sum('total'),
-            'pending_orders' => Order::where('status', Order::STATUS_PENDING)->count(),
-            'low_stock'      => Product::active()->where('stock', '<=', 5)->count(),
+            'total_sales'   => Order::where('status', Order::STATUS_PAID)->sum('total'),
+            'orders_count'  => Order::count(),
+            'users_count'   => User::where('role', 'customer')->count(),
+            'out_of_stock'  => Product::where('stock', 0)->count(),
         ];
 
-        $recentOrders = Order::with('user')
-            ->latest()
-            ->take(5)
+        // Datos para el gráfico de ventas de los últimos 7 días
+        $salesData = Order::select(
+                DB::raw('DATE(created_at) as date'),
+                DB::raw('SUM(total) as total')
+            )
+            ->where('status', Order::STATUS_PAID)
+            ->where('created_at', '>=', now()->subDays(7))
+            ->groupBy('date')
+            ->orderBy('date')
             ->get();
 
-        $lowStockProducts = Product::with('category')
-            ->active()
-            ->where('stock', '<=', 5)
-            ->orderBy('stock')
-            ->take(5)
+        // Datos para el gráfico de categorías (distribución de productos)
+        $categoryData = DB::table('categories')
+            ->join('products', 'categories.id', '=', 'products.category_id')
+            ->select('categories.name', DB::raw('count(*) as total'))
+            ->groupBy('categories.name')
             ->get();
 
-        return view('admin.dashboard', compact('stats', 'recentOrders', 'lowStockProducts'));
+        return view('admin.dashboard', compact('stats', 'salesData', 'categoryData'));
     }
 }

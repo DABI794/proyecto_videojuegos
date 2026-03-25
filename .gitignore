@@ -1,6 +1,53 @@
-/node_modules
-/vendor
+# Dependencias
+/vendor/
+/node_modules/
+
+# Entorno / secretos
 .env
+.env.*
+.env.backup
+.env.production
+!.env.example
+
+# Builds / Vite
+/public/build/
 /public/hot
+
+# Storage
+/public/storage
 /storage/*.key
+/storage/logs/*
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+/storage/framework/testing/*
+/storage/app/public/products/.gitkeep
+
+# Base de datos
 /database/*.sqlite
+
+# Cache Laravel
+/bootstrap/cache/*.php
+!/bootstrap/cache/.gitignore
+
+# Testing
+.phpunit.cache/
+/phpunit.result.cache
+
+# Logs / PID
+*.log
+pids
+php_errors.log
+chatter.log
+
+# Auth composer
+auth.json
+
+# IDE / OS
+/.idea/
+/.vscode/
+.DS_Store
+Thumbs.db
+
+AGENTS.md
+.agents/
