@@ -25,39 +25,20 @@
             {{-- Items --}}
             <div class="lg:col-span-2 space-y-4" id="cart-items">
                 @foreach($cartItems as $item)
-                    <div class="bg-[#1e293b] border border-[#334155] rounded-2xl p-4 flex gap-4 items-center" id="item-{{ $item->id }}">
+                    <div class="bg-[#1e293b] border border-[#334155] rounded-2xl p-4 flex flex-col sm:flex-row gap-4 sm:items-center transition-all duration-300 hover:border-[#475569] hover:bg-[#1e293b]/80 group" id="item-{{ $item->id }}">
 
                         {{-- Imagen --}}
-                        <img src="{{ $item->product->image_url }}" alt="{{ $item->product->name }}"
-                             class="w-20 h-20 object-cover rounded-xl shrink-0 bg-[#0f172a]">
+                        <div class="relative shrink-0 w-24 h-24 sm:w-20 sm:h-20 rounded-xl overflow-hidden bg-[#0f172a] border border-[#334155] group-hover:border-[#6366f1]/50 transition-colors">
+                            <img src="{{ $item->product->image_url }}" alt="{{ $item->product->name }}"
+                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        </div>
 
                         {{-- Info --}}
-                        <div class="flex-1 min-w-0">
-                            <p class="text-xs text-[#6366f1] font-medium mb-0.5">{{ $item->product->category?->name }}</p>
-                            <h3 class="text-[#f1f5f9] font-semibold text-sm leading-snug truncate">{{ $item->product->name }}</h3>
-                            <p class="text-[#6366f1] font-bold mt-1">{{ $item->product->formatted_price }}</p>
+                        <div class="flex-1 min-w-0 flex flex-col justify-center">
+                            <span class="text-[11px] text-[#6366f1] font-bold uppercase tracking-wider mb-1">{{ $item->product->category?->name ?? 'Juego' }}</span>
+                            <a href="{{ route('products.show', $item->product) }}" class="text-[#f1f5f9] font-semibold text-base leading-tight line-clamp-2 hover:text-[#6366f1] transition-colors decoration-transparent">{{ $item->product->name }}</a>
+                            <p class="text-[#cbd5e1] font-bold mt-1.5">{{ $item->product->formatted_price }}</p>
                         </div>
-
-                        {{-- Cantidad --}}
-                        <div class="flex items-center bg-[#0f172a] border border-[#334155] rounded-xl overflow-hidden shrink-0">
-                            <button onclick="actualizarCantidad({{ $item->id }}, -1, {{ $item->quantity }})"
-                                class="px-3 py-2 text-[#94a3b8] hover:text-[#f1f5f9] hover:bg-[#334155] transition-colors bg-transparent border-0 font-bold text-sm">−</button>
-                            <span class="px-3 text-[#f1f5f9] text-sm font-medium w-8 text-center" id="qty-{{ $item->id }}">{{ $item->quantity }}</span>
-                            <button onclick="actualizarCantidad({{ $item->id }}, 1, {{ $item->quantity }})"
-                                class="px-3 py-2 text-[#94a3b8] hover:text-[#f1f5f9] hover:bg-[#334155] transition-colors bg-transparent border-0 font-bold text-sm">+</button>
-                        </div>
-
-                        {{-- Subtotal --}}
-                        <div class="text-right shrink-0 w-24">
-                            <p class="text-[#f1f5f9] font-bold text-sm" id="subtotal-{{ $item->id }}">{{ $item->formatted_subtotal }}</p>
-                        </div>
-
-                        {{-- Eliminar --}}
-                        <button onclick="eliminarItem({{ $item->id }})"
-                            class="text-[#64748b] hover:text-red-400 transition-colors bg-transparent border-0 p-1 shrink-0">
-                            <i class="bi bi-trash text-lg"></i>
-                        </button>
-                    </div>
                 @endforeach
             </div>
 
