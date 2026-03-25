@@ -27,69 +27,67 @@
         </h3>
 
         {{-- Precio + Stock --}}
-<div class="mb-3">
+        <div class="mb-3">
 
-    {{-- Fila superior: precio y stock --}}
-    <div class="flex items-center justify-between">
-        <span class="text-[#6366f1] font-bold text-lg">
-            @money($product->price)
-        </span>
+            {{-- Fila superior: precio y stock --}}
+            <div class="flex items-center justify-between">
+                <span class="text-[#6366f1] font-bold text-lg">
+                    @money($product->price)
+                </span>
 
-        @if($product->isInStock())
-            <span class="text-xs text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded-full">
-                En stock
-            </span>
-        @else
-            <span class="text-xs text-red-400 bg-red-400/10 px-2 py-0.5 rounded-full">
-                Sin stock
-            </span>
-        @endif
-    </div>
+                @if($product->isInStock())
+                    <span class="text-xs text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded-full">
+                        En stock
+                    </span>
+                @else
+                    <span class="text-xs text-red-400 bg-red-400/10 px-2 py-0.5 rounded-full">
+                        Sin stock
+                    </span>
+                @endif
+            </div>
 
-    {{-- Corazón + contador --}}
-    <div class="flex items-center gap-2 text-xs text-[#64748b] mt-2">
+            {{-- Corazón + contador --}}
+            <div class="flex items-center gap-2 text-xs text-[#64748b] mt-2">
 
-        <div class="relative group flex items-center gap-1 cursor-pointer">
+                <div class="relative group flex items-center gap-1 cursor-pointer">
 
-            <i class="bi bi-heart-fill text-red-500"></i>
+                    <i class="bi bi-heart-fill text-red-500"></i>
 
-            <span>
-                {{ $product->orders_count ?? rand(10, 500) }}
-            </span>
+                    <span>
+                        {{ $product->orders_count ?? rand(10, 500) }}
+                    </span>
 
-            {{-- Tooltip --}}
-            <div class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 
-            opacity-0 group-hover:opacity-100 
-            pointer-events-none
-            transition-opacity duration-200
-            bg-black text-white text-xs rounded px-3 py-1 
-            whitespace-nowrap z-[999] shadow-lg">
+                    {{-- Tooltip --}}
+                    <div class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 
+                    opacity-0 group-hover:opacity-100 
+                    pointer-events-none
+                    transition-opacity duration-200
+                    bg-black text-white text-xs rounded px-3 py-1 
+                    whitespace-nowrap z-[999] shadow-lg">
+
+                    </div>
+                </div>
+
+            </div>
+
+            {{-- Metadatos (debajo del corazón) --}}
+            <div class="flex items-center gap-4 text-xs text-[#64748b] mt-2">
+
+                {{-- Rating --}}
+                <div class="flex items-center gap-1">
+                    <i class="bi bi-star-fill text-yellow-400"></i>
+                    <span>4.5</span>
+                </div>
+
+                {{-- Vistas --}}
+                <div class="flex items-center gap-1">
+                    <i class="bi bi-eye"></i>
+                    <span>{{ rand(100, 2000) }}</span>
+                </div>
 
             </div>
 
         </div>
-
-    </div>
-
-    {{-- Metadatos (debajo del corazón) --}}
-    <div class="flex items-center gap-4 text-xs text-[#64748b] mt-2">
-
-        {{-- Rating --}}
-        <div class="flex items-center gap-1">
-            <i class="bi bi-star-fill text-yellow-400"></i>
-            <span>4.5</span>
-        </div>
-
-        {{-- Vistas --}}
-        <div class="flex items-center gap-1">
-            <i class="bi bi-eye"></i>
-            <span>{{ rand(100, 2000) }}</span>
-        </div>
-
-    </div>
-
-</div>
-
 
         {{-- Botón animado oculto completamente --}}
         @if($product->isInStock())
@@ -100,13 +98,13 @@
 
                     @auth
                         <button onclick="agregarAlCarrito({{ $product->id }}, this)" class="w-full bg-[#6366f1] hover:bg-[#4f46e5] text-white text-sm font-medium py-2.5 rounded-xl 
-                                                            flex items-center justify-center gap-2 transition-colors">
+                                                                            flex items-center justify-center gap-2 transition-colors">
                             <i class="bi bi-bag-plus"></i>
                             Agregar al carrito
                         </button>
                     @else
                         <a href="{{ route('login') }}" class="w-full bg-[#6366f1] hover:bg-[#4f46e5] text-white text-sm font-medium py-2.5 rounded-xl 
-                                                           no-underline flex items-center justify-center gap-2">
+                                                                           no-underline flex items-center justify-center gap-2">
                             <i class="bi bi-bag-plus"></i>
                             Agregar al carrito
                         </a>
