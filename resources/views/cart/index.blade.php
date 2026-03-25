@@ -39,6 +39,7 @@
                             <a href="{{ route('products.show', $item->product) }}" class="text-[#f1f5f9] font-semibold text-base leading-tight line-clamp-2 hover:text-[#6366f1] transition-colors decoration-transparent">{{ $item->product->name }}</a>
                             <p class="text-[#cbd5e1] font-bold mt-1.5">{{ $item->product->formatted_price }}</p>
                         </div>
+                    </div>
                 @endforeach
             </div>
 
