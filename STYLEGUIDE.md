@@ -1,4 +1,3 @@
-
 # Guía de Estilo
 
 ## Paleta de colores

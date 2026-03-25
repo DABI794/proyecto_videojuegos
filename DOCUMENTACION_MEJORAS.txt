@@ -1,0 +1,67 @@
+===========================================================
+DOCUMENTACIÓN DE MEJORAS - GAMESTORE (PROYECTO COMPLETO)
+===========================================================
+
+Este documento detalla los dos grandes bloques de mejoras 
+implementadas para transformar el proyecto original en una 
+plataforma e-commerce de alto nivel.
+
+-----------------------------------------------------------
+FASE 1: MEJORAS COLABORATIVAS (ESENCIALES)
+-----------------------------------------------------------
+
+1. SOPORTE MULTI-BASE DE DATOS (SQLite):
+   - Configuración universal para que cualquier miembro del equipo 
+     pueda trabajar sin configurar MySQL localmente.
+
+2. PROTECCIÓN DE CONFIGURACIÓN (.env):
+   - Ocultamiento de datos sensibles para evitar fugas en el repositorio.
+
+3. ESTANDARIZACIÓN DE MONEDA (Trait 'HasPriceFormatting'):
+   - Unificación de precios en todo el sistema bajo el formato 'Bs. X.XX'.
+
+4. MEJORA DE CATÁLOGO:
+   - Botón 'Limpiar filtros' y contador dinámico de resultados.
+
+5. PERSISTENCIA DE PRODUCTOS (Slug Snapshot):
+   - Registro permanente del nombre y slug del producto en los pedidos, 
+     evitando que se pierdan datos si el producto se borra.
+
+6. DIRECTIVA BLADE '@money':
+   - Facilidad para los desarrolladores de imprimir precios con formato 
+     profesional en cualquier parte del sitio.
+
+-----------------------------------------------------------
+FASE 2: FUNCIONES "TRIPLE A" (AVANZADAS)
+-----------------------------------------------------------
+
+7. SISTEMA DE RESEÑAS Y RATINGS:
+   - Calificaciones con estrellas y comentarios por juego.
+   - Cálculo de promedio de satisfacción automático.
+
+8. NOTIFICACIONES AUTOMÁTICAS POR EMAIL:
+   - Email de Bienvenida y Confirmación de Compra (Markdown).
+
+9. PASARELA DE PAGO PAYPAL:
+   - Checkout funcional con SDK oficial en modo Sandbox.
+   - Sincronización automática de estado de pago.
+
+10. DASHBOARD ADMINISTRATIVO CON GRÁFICOS:
+    - Uso de Chart.js para visualizar ventas de los últimos 7 días.
+    - Gráfico doughnut para distribución de stock por categoría.
+
+11. INTERACTIVIDAD CON ALPINE.JS:
+    - Dropdowns animados y actualización reactiva del carrito (badge).
+
+-----------------------------------------------------------
+GESTIÓN DE RAMAS EN GITHUB
+-----------------------------------------------------------
+- 'main': Proyecto original intacto.
+- 'mejoras-colaborativas': Contiene la Fase 1.
+- 'feature/mejoras-triple-a': Contiene FASE 1 + FASE 2 (Proyecto final).
+
+===========================================================
+Documento finalizado el: 23 de marzo de 2026
+===========================================================
+
+
