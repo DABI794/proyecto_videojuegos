@@ -9,12 +9,14 @@
     </h1>
 
     @if($cartItems->isEmpty())
-        <div class="text-center py-20 bg-[#1e293b] border border-[#334155] rounded-2xl">
-            <div class="text-6xl mb-4">🛒</div>
-            <h3 class="text-[#f1f5f9] font-semibold text-xl mb-2">Tu carrito está vacío</h3>
-            <p class="text-[#64748b] mb-6">Explorá el catálogo y agregá los juegos que te gusten.</p>
-            <a href="{{ route('products.index') }}" class="bg-[#6366f1] hover:bg-[#4f46e5] text-white px-6 py-2.5 rounded-xl no-underline transition-colors font-medium">
-                Ver productos
+        <div class="flex flex-col items-center justify-center text-center py-24 bg-[#1e293b] border border-[#334155] rounded-3xl shadow-lg shadow-black/20">
+            <div class="w-24 h-24 bg-[#0f172a] rounded-full flex items-center justify-center mb-6 border border-[#334155]">
+                <i class="bi bi-cart-x text-4xl text-[#64748b]"></i>
+            </div>
+            <h3 class="text-[#f1f5f9] font-bold text-2xl mb-3">Tu carrito está vacío</h3>
+            <p class="text-[#94a3b8] mb-8 max-w-sm">Aún no has agregado ningún producto. ¡Explora nuestro catálogo y encuentra tus juegos favoritos!</p>
+            <a href="{{ route('products.index') }}" class="bg-[#6366f1] hover:bg-[#4f46e5] text-white px-8 py-3 rounded-xl no-underline transition-all duration-300 hover:-translate-y-1 font-semibold flex items-center gap-2 shadow-lg shadow-[#6366f1]/20">
+                <i class="bi bi-controller"></i> Ir a la tienda
             </a>
         </div>
     @else
@@ -23,38 +25,31 @@
             {{-- Items --}}
             <div class="lg:col-span-2 space-y-4" id="cart-items">
                 @foreach($cartItems as $item)
-                    <div class="bg-[#1e293b] border border-[#334155] rounded-2xl p-4 flex gap-4 items-center" id="item-{{ $item->id }}">
+                    <div class="bg-[#1e293b] border border-[#334155] rounded-2xl p-4 flex flex-col sm:flex-row gap-4 sm:items-center transition-all duration-300 hover:border-[#475569] hover:bg-[#1e293b]/80 group" id="item-{{ $item->id }}">
 
                         {{-- Imagen --}}
-                        <img src="{{ $item->product->image_url }}" alt="{{ $item->product->name }}"
-                             class="w-20 h-20 object-cover rounded-xl shrink-0 bg-[#0f172a]">
+                        <div class="relative shrink-0 w-24 h-24 sm:w-20 sm:h-20 rounded-xl overflow-hidden bg-[#0f172a] border border-[#334155] group-hover:border-[#6366f1]/50 transition-colors">
+                            <img src="{{ $item->product->image_url }}" alt="{{ $item->product->name }}"
+                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        </div>
 
                         {{-- Info --}}
-                        <div class="flex-1 min-w-0">
-                            <p class="text-xs text-[#6366f1] font-medium mb-0.5">{{ $item->product->category?->name }}</p>
-                            <h3 class="text-[#f1f5f9] font-semibold text-sm leading-snug truncate">{{ $item->product->name }}</h3>
-                            <p class="text-[#6366f1] font-bold mt-1">{{ $item->product->formatted_price }}</p>
+                        <div class="flex-1 min-w-0 flex flex-col justify-center">
+                            <span class="text-[11px] text-[#6366f1] font-bold uppercase tracking-wider mb-1">{{ $item->product->category?->name ?? 'Juego' }}</span>
+                            <a href="{{ route('products.show', $item->product) }}" class="text-[#f1f5f9] font-semibold text-base leading-tight line-clamp-2 hover:text-[#6366f1] transition-colors decoration-transparent">{{ $item->product->name }}</a>
+                            <p class="text-[#cbd5e1] font-bold mt-1.5">{{ $item->product->formatted_price }}</p>
+                            <div class="flex items-center gap-2 mt-3">
+                                <button onclick="actualizarCantidad({{ $item->id }}, -1, {{ $item->quantity }})"
+                                    class="w-7 h-7 rounded-lg bg-[#0f172a] border border-[#334155] text-[#94a3b8] hover:text-white hover:border-[#6366f1] transition-all text-sm">−</button>
+                                <span id="qty-{{ $item->id }}" class="text-[#f1f5f9] font-semibold w-6 text-center">{{ $item->quantity }}</span>
+                                <button onclick="actualizarCantidad({{ $item->id }}, +1, {{ $item->quantity }})"
+                                    class="w-7 h-7 rounded-lg bg-[#0f172a] border border-[#334155] text-[#94a3b8] hover:text-white hover:border-[#6366f1] transition-all text-sm">+</button>
+                                <button onclick="eliminarItem({{ $item->id }})"
+                                    class="ml-auto text-[#64748b] hover:text-red-400 transition-colors text-sm">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
                         </div>
-
-                        {{-- Cantidad --}}
-                        <div class="flex items-center bg-[#0f172a] border border-[#334155] rounded-xl overflow-hidden shrink-0">
-                            <button onclick="actualizarCantidad({{ $item->id }}, -1, {{ $item->quantity }})"
-                                class="px-3 py-2 text-[#94a3b8] hover:text-[#f1f5f9] hover:bg-[#334155] transition-colors bg-transparent border-0 font-bold text-sm">−</button>
-                            <span class="px-3 text-[#f1f5f9] text-sm font-medium w-8 text-center" id="qty-{{ $item->id }}">{{ $item->quantity }}</span>
-                            <button onclick="actualizarCantidad({{ $item->id }}, 1, {{ $item->quantity }})"
-                                class="px-3 py-2 text-[#94a3b8] hover:text-[#f1f5f9] hover:bg-[#334155] transition-colors bg-transparent border-0 font-bold text-sm">+</button>
-                        </div>
-
-                        {{-- Subtotal --}}
-                        <div class="text-right shrink-0 w-24">
-                            <p class="text-[#f1f5f9] font-bold text-sm" id="subtotal-{{ $item->id }}">{{ $item->formatted_subtotal }}</p>
-                        </div>
-
-                        {{-- Eliminar --}}
-                        <button onclick="eliminarItem({{ $item->id }})"
-                            class="text-[#64748b] hover:text-red-400 transition-colors bg-transparent border-0 p-1 shrink-0">
-                            <i class="bi bi-trash text-lg"></i>
-                        </button>
                     </div>
                 @endforeach
             </div>
@@ -149,8 +144,19 @@ async function eliminarItem(itemId) {
         if (data.exito) {
             document.getElementById(`item-${itemId}`)?.remove();
             actualizarContadorCarrito();
-            if (data.cantidad === 0) location.reload();
-        }
+            if (data.cantidad === 0) {
+                document.querySelector('.grid').innerHTML = `
+                    <div class="col-span-3 flex flex-col items-center justify-center text-center py-24 bg-[#1e293b] border border-[#334155] rounded-3xl">
+                        <div class="w-24 h-24 bg-[#0f172a] rounded-full flex items-center justify-center mb-6 border border-[#334155]">
+                            <i class="bi bi-cart-x text-4xl text-[#64748b]"></i>
+                        </div>
+                        <h3 class="text-[#f1f5f9] font-bold text-2xl mb-3">Tu carrito está vacío</h3>
+                        <p class="text-[#94a3b8] mb-8 max-w-sm">¡Explora nuestro catálogo y encuentra tus juegos favoritos!</p>
+                        <a href="/products" class="bg-[#6366f1] hover:bg-[#4f46e5] text-white px-8 py-3 rounded-xl font-semibold flex items-center gap-2">
+                            <i class="bi bi-controller"></i> Ir a la tienda
+                        </a>
+                    </div>`;
+        }}
     } catch(e) {}
 }
 </script>
