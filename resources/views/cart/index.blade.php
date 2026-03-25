@@ -144,8 +144,19 @@ async function eliminarItem(itemId) {
         if (data.exito) {
             document.getElementById(`item-${itemId}`)?.remove();
             actualizarContadorCarrito();
-            if (data.cantidad === 0) location.reload();
-        }
+            if (data.cantidad === 0) {
+                document.querySelector('.grid').innerHTML = `
+                    <div class="col-span-3 flex flex-col items-center justify-center text-center py-24 bg-[#1e293b] border border-[#334155] rounded-3xl">
+                        <div class="w-24 h-24 bg-[#0f172a] rounded-full flex items-center justify-center mb-6 border border-[#334155]">
+                            <i class="bi bi-cart-x text-4xl text-[#64748b]"></i>
+                        </div>
+                        <h3 class="text-[#f1f5f9] font-bold text-2xl mb-3">Tu carrito está vacío</h3>
+                        <p class="text-[#94a3b8] mb-8 max-w-sm">¡Explora nuestro catálogo y encuentra tus juegos favoritos!</p>
+                        <a href="/products" class="bg-[#6366f1] hover:bg-[#4f46e5] text-white px-8 py-3 rounded-xl font-semibold flex items-center gap-2">
+                            <i class="bi bi-controller"></i> Ir a la tienda
+                        </a>
+                    </div>`;
+        }}
     } catch(e) {}
 }
 </script>
