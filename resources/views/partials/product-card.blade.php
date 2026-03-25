@@ -1,14 +1,11 @@
 {{-- Uso: @include('partials.product-card', ['product' => $product]) --}}
-<div class="group bg-[#1e293b] border border-[#334155] rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:border-[#6366f1] hover:shadow-xl hover:shadow-[#6366f1]/10 flex flex-col">
+<div
+    class="group bg-[#1e293b] border border-[#334155] rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:border-[#6366f1] hover:shadow-xl hover:shadow-[#6366f1]/10 flex flex-col">
 
     {{-- Imagen --}}
     <a href="{{ route('products.show', $product) }}" class="block overflow-hidden aspect-[4/3] bg-[#0f172a]">
-        <img
-            src="{{ $product->image_url }}"
-            alt="{{ $product->name }}"
-            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-            loading="lazy"
-        >
+        <img src="{{ $product->image_url }}" alt="{{ $product->name }}"
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
     </a>
 
     {{-- Contenido --}}
@@ -23,46 +20,105 @@
 
         {{-- Nombre --}}
         <h3 class="text-[#f1f5f9] font-semibold text-sm leading-snug mb-2 line-clamp-2 flex-1">
-            <a href="{{ route('products.show', $product) }}" class="no-underline hover:text-[#6366f1] transition-colors">
+            <a href="{{ route('products.show', $product) }}"
+                class="no-underline hover:text-[#6366f1] transition-colors">
                 {{ $product->name }}
             </a>
         </h3>
 
         {{-- Precio + Stock --}}
-        <div class="flex items-center justify-between mb-3">
-            <span class="text-[#6366f1] font-bold text-lg">{{ $product->formatted_price }}</span>
+        <div class="mb-3">
 
-            @if($product->isInStock())
-                <span class="text-xs text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded-full">
-                    En stock
+            {{-- Fila superior: precio y stock --}}
+            <div class="flex items-center justify-between">
+                <span class="text-[#6366f1] font-bold text-lg">
+                    @money($product->price)
                 </span>
-            @else
-                <span class="text-xs text-red-400 bg-red-400/10 px-2 py-0.5 rounded-full">
-                    Sin stock
-                </span>
-            @endif
+
+                @if($product->isInStock())
+                    <span class="text-xs text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded-full">
+                        En stock
+                    </span>
+                @else
+                    <span class="text-xs text-red-400 bg-red-400/10 px-2 py-0.5 rounded-full">
+                        Sin stock
+                    </span>
+                @endif
+            </div>
+
+            {{-- Corazón + contador --}}
+            <div class="flex items-center gap-2 text-xs text-[#64748b] mt-2">
+
+                <div class="relative group flex items-center gap-1 cursor-pointer">
+
+                    <i class="bi bi-heart-fill text-red-500"></i>
+
+                    <span>
+                        {{ $product->orders_count ?? rand(10, 500) }}
+                    </span>
+
+                    {{-- Tooltip --}}
+                    <div class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 
+                    opacity-0 group-hover:opacity-100 
+                    pointer-events-none
+                    transition-opacity duration-200
+                    bg-black text-white text-xs rounded px-3 py-1 
+                    whitespace-nowrap z-[999] shadow-lg">
+
+                    </div>
+                </div>
+
+            </div>
+
+            {{-- Metadatos (debajo del corazón) --}}
+            <div class="flex items-center gap-4 text-xs text-[#64748b] mt-2">
+
+                {{-- Rating --}}
+                <div class="flex items-center gap-1">
+                    <i class="bi bi-star-fill text-yellow-400"></i>
+                    <span>4.5</span>
+                </div>
+
+                {{-- Vistas --}}
+                <div class="flex items-center gap-1">
+                    <i class="bi bi-eye"></i>
+                    <span>{{ rand(100, 2000) }}</span>
+                </div>
+
+            </div>
+
         </div>
 
-        {{-- Botón agregar al carrito --}}
+        {{-- Botón animado oculto completamente --}}
         @if($product->isInStock())
-            @auth
-                <button
-                    onclick="agregarAlCarrito({{ $product->id }}, this)"
-                    class="w-full bg-[#6366f1] hover:bg-[#4f46e5] text-white text-sm font-medium py-2.5 rounded-xl transition-all duration-200 hover:-translate-y-0.5 border-0 flex items-center justify-center gap-2"
-                >
-                    <i class="bi bi-bag-plus"></i>
-                    Agregar al carrito
-                </button>
-            @else
-                <a href="{{ route('login') }}" class="w-full bg-[#6366f1] hover:bg-[#4f46e5] text-white text-sm font-medium py-2.5 rounded-xl transition-all no-underline text-center flex items-center justify-center gap-2">
-                    <i class="bi bi-bag-plus"></i>
-                    Agregar al carrito
-                </a>
-            @endauth
+            <div class="relative mt-3 overflow-hidden">
+
+                <div class="w-full translate-y-full group-hover:translate-y-0 
+                            transition-transform duration-300 ease-in-out">
+
+                    @auth
+                        <button onclick="agregarAlCarrito({{ $product->id }}, this)" class="w-full bg-[#6366f1] hover:bg-[#4f46e5] text-white text-sm font-medium py-2.5 rounded-xl 
+                                                                            flex items-center justify-center gap-2 transition-colors">
+                            <i class="bi bi-bag-plus"></i>
+                            Agregar al carrito
+                        </button>
+                    @else
+                        <a href="{{ route('login') }}" class="w-full bg-[#6366f1] hover:bg-[#4f46e5] text-white text-sm font-medium py-2.5 rounded-xl 
+                                                                           no-underline flex items-center justify-center gap-2">
+                            <i class="bi bi-bag-plus"></i>
+                            Agregar al carrito
+                        </a>
+                    @endauth
+
+                </div>
+
+            </div>
         @else
-            <button disabled class="w-full bg-[#334155] text-[#64748b] text-sm font-medium py-2.5 rounded-xl cursor-not-allowed border-0">
+            <button disabled
+                class="w-full bg-[#334155] text-[#64748b] text-sm font-medium py-2.5 rounded-xl cursor-not-allowed mt-3">
                 Sin stock
             </button>
         @endif
+
     </div>
 </div>
