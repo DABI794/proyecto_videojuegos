@@ -9,12 +9,14 @@
     </h1>
 
     @if($cartItems->isEmpty())
-        <div class="text-center py-20 bg-[#1e293b] border border-[#334155] rounded-2xl">
-            <div class="text-6xl mb-4">🛒</div>
-            <h3 class="text-[#f1f5f9] font-semibold text-xl mb-2">Tu carrito está vacío</h3>
-            <p class="text-[#64748b] mb-6">Explorá el catálogo y agregá los juegos que te gusten.</p>
-            <a href="{{ route('products.index') }}" class="bg-[#6366f1] hover:bg-[#4f46e5] text-white px-6 py-2.5 rounded-xl no-underline transition-colors font-medium">
-                Ver productos
+        <div class="flex flex-col items-center justify-center text-center py-24 bg-[#1e293b] border border-[#334155] rounded-3xl shadow-lg shadow-black/20">
+            <div class="w-24 h-24 bg-[#0f172a] rounded-full flex items-center justify-center mb-6 border border-[#334155]">
+                <i class="bi bi-cart-x text-4xl text-[#64748b]"></i>
+            </div>
+            <h3 class="text-[#f1f5f9] font-bold text-2xl mb-3">Tu carrito está vacío</h3>
+            <p class="text-[#94a3b8] mb-8 max-w-sm">Aún no has agregado ningún producto. ¡Explora nuestro catálogo y encuentra tus juegos favoritos!</p>
+            <a href="{{ route('products.index') }}" class="bg-[#6366f1] hover:bg-[#4f46e5] text-white px-8 py-3 rounded-xl no-underline transition-all duration-300 hover:-translate-y-1 font-semibold flex items-center gap-2 shadow-lg shadow-[#6366f1]/20">
+                <i class="bi bi-controller"></i> Ir a la tienda
             </a>
         </div>
     @else
