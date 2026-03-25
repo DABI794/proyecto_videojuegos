@@ -38,6 +38,17 @@
                             <span class="text-[11px] text-[#6366f1] font-bold uppercase tracking-wider mb-1">{{ $item->product->category?->name ?? 'Juego' }}</span>
                             <a href="{{ route('products.show', $item->product) }}" class="text-[#f1f5f9] font-semibold text-base leading-tight line-clamp-2 hover:text-[#6366f1] transition-colors decoration-transparent">{{ $item->product->name }}</a>
                             <p class="text-[#cbd5e1] font-bold mt-1.5">{{ $item->product->formatted_price }}</p>
+                            <div class="flex items-center gap-2 mt-3">
+                                <button onclick="actualizarCantidad({{ $item->id }}, -1, {{ $item->quantity }})"
+                                    class="w-7 h-7 rounded-lg bg-[#0f172a] border border-[#334155] text-[#94a3b8] hover:text-white hover:border-[#6366f1] transition-all text-sm">−</button>
+                                <span id="qty-{{ $item->id }}" class="text-[#f1f5f9] font-semibold w-6 text-center">{{ $item->quantity }}</span>
+                                <button onclick="actualizarCantidad({{ $item->id }}, +1, {{ $item->quantity }})"
+                                    class="w-7 h-7 rounded-lg bg-[#0f172a] border border-[#334155] text-[#94a3b8] hover:text-white hover:border-[#6366f1] transition-all text-sm">+</button>
+                                <button onclick="eliminarItem({{ $item->id }})"
+                                    class="ml-auto text-[#64748b] hover:text-red-400 transition-colors text-sm">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 @endforeach
