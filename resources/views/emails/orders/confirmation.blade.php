@@ -7,9 +7,9 @@ Hola {{ $order->user->name }}, tu pedido **#{{ $order->id }}** ha sido registrad
 | Producto | Cantidad | Subtotal |
 | :--- | :---: | :--- |
 @foreach($order->items as $item)
-| {{ $item->product_name }} | {{ $item->quantity }} | @money($item->subtotal) |
+| {{ $item->product_name }} | {{ $item->quantity }} | Bs. {{ number_format($order->total, 2) }} |
 @endforeach
-| **Total** | | **@money($order->total)** |
+| **Total** | | **Bs. {{ number_format($order->total, 2) }}** |
 </x-mail::table>
 
 <x-mail::button :url="route('orders.show', $order)">

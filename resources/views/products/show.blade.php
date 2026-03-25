@@ -44,7 +44,6 @@
                     <div class="flex text-yellow-400">
                         @for($i = 1; $i <= 5; $i++)
                             <i class="bi bi-star-fill {{ $i <= $product->averageRating() ? '' : 'text-[#334155]' }}"></i>
-                        @for($i = 1; $i <= 5; $i++)
                         @endfor
                     </div>
                     <span class="text-sm text-[#94a3b8]">({{ $product->reviews()->count() }} reseñas)</span>

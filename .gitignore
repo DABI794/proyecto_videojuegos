@@ -21,6 +21,7 @@
 /storage/framework/sessions/*
 /storage/framework/views/*
 /storage/framework/testing/*
+/storage/app/public/products/.gitkeep
 
 # Cache Laravel
 /bootstrap/cache/*.php
@@ -44,3 +45,6 @@ auth.json
 /.vscode/
 .DS_Store
 Thumbs.db
+
+AGENTS.md
+.agents/

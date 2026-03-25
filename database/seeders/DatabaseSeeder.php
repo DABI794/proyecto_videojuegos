@@ -29,5 +29,6 @@ class DatabaseSeeder extends Seeder
 
         $this->command->newLine();
         $this->command->info('🚀 Seed completado. Podés iniciar sesión en /login');
+        $this->call(ProductsTableSeeder::class);
     }
 }

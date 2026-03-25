@@ -535,6 +535,16 @@ class ComposerStaticInit10254e7046a0fe7e40f4a6ec59148078
         ),
     );
 
+    public static $prefixesPsr0 = array (
+        'O' =>
+        array (
+            'Orangehill\\Iseed' =>
+            array (
+                0 => __DIR__ . '/..' . '/orangehill/iseed/src',
+            ),
+        ),
+    );
+
     public static $classMap = array (
         'App\\Http\\Controllers\\Admin\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/DashboardController.php',
         'App\\Http\\Controllers\\Admin\\ProductController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/ProductController.php',
@@ -553,18 +563,23 @@ class ComposerStaticInit10254e7046a0fe7e40f4a6ec59148078
         'App\\Http\\Controllers\\OrderController' => __DIR__ . '/../..' . '/app/Http/Controllers/OrderController.php',
         'App\\Http\\Controllers\\ProductController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProductController.php',
         'App\\Http\\Controllers\\ProfileController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProfileController.php',
+        'App\\Http\\Controllers\\ReviewController' => __DIR__ . '/../..' . '/app/Http/Controllers/ReviewController.php',
         'App\\Http\\Middleware\\EnsureUserIsAdmin' => __DIR__ . '/../..' . '/app/Http/Middleware/EnsureUserIsAdmin.php',
         'App\\Http\\Requests\\Admin\\StoreProductRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Admin/StoreProductRequest.php',
         'App\\Http\\Requests\\Admin\\UpdateProductRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Admin/UpdateProductRequest.php',
         'App\\Http\\Requests\\Auth\\LoginRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Auth/LoginRequest.php',
         'App\\Http\\Requests\\ProfileUpdateRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ProfileUpdateRequest.php',
+        'App\\Mail\\OrderConfirmationMail' => __DIR__ . '/../..' . '/app/Mail/OrderConfirmationMail.php',
+        'App\\Mail\\WelcomeMail' => __DIR__ . '/../..' . '/app/Mail/WelcomeMail.php',
         'App\\Models\\CartItem' => __DIR__ . '/../..' . '/app/Models/CartItem.php',
         'App\\Models\\Category' => __DIR__ . '/../..' . '/app/Models/Category.php',
         'App\\Models\\Order' => __DIR__ . '/../..' . '/app/Models/Order.php',
         'App\\Models\\OrderItem' => __DIR__ . '/../..' . '/app/Models/OrderItem.php',
         'App\\Models\\Product' => __DIR__ . '/../..' . '/app/Models/Product.php',
+        'App\\Models\\Review' => __DIR__ . '/../..' . '/app/Models/Review.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
+        'App\\Traits\\HasPriceFormatting' => __DIR__ . '/../..' . '/app/Traits/HasPriceFormatting.php',
         'App\\View\\Components\\AppLayout' => __DIR__ . '/../..' . '/app/View/Components/AppLayout.php',
         'App\\View\\Components\\GuestLayout' => __DIR__ . '/../..' . '/app/View/Components/GuestLayout.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
@@ -695,6 +710,7 @@ class ComposerStaticInit10254e7046a0fe7e40f4a6ec59148078
         'Database\\Seeders\\CategorySeeder' => __DIR__ . '/../..' . '/database/seeders/CategorySeeder.php',
         'Database\\Seeders\\DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeders/DatabaseSeeder.php',
         'Database\\Seeders\\ProductSeeder' => __DIR__ . '/../..' . '/database/seeders/ProductSeeder.php',
+        'Database\\Seeders\\ProductsTableSeeder' => __DIR__ . '/../..' . '/database/seeders/ProductsTableSeeder.php',
         'Database\\Seeders\\UserSeeder' => __DIR__ . '/../..' . '/database/seeders/UserSeeder.php',
         'DateError' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateError.php',
         'DateException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateException.php',
@@ -3892,6 +3908,11 @@ class ComposerStaticInit10254e7046a0fe7e40f4a6ec59148078
         'NunoMaduro\\Collision\\Provider' => __DIR__ . '/..' . '/nunomaduro/collision/src/Provider.php',
         'NunoMaduro\\Collision\\SolutionsRepositories\\NullSolutionsRepository' => __DIR__ . '/..' . '/nunomaduro/collision/src/SolutionsRepositories/NullSolutionsRepository.php',
         'NunoMaduro\\Collision\\Writer' => __DIR__ . '/..' . '/nunomaduro/collision/src/Writer.php',
+        'Orangehill\\Iseed\\Facades\\Iseed' => __DIR__ . '/..' . '/orangehill/iseed/src/Orangehill/Iseed/Facades/Iseed.php',
+        'Orangehill\\Iseed\\Iseed' => __DIR__ . '/..' . '/orangehill/iseed/src/Orangehill/Iseed/Iseed.php',
+        'Orangehill\\Iseed\\IseedCommand' => __DIR__ . '/..' . '/orangehill/iseed/src/Orangehill/Iseed/IseedCommand.php',
+        'Orangehill\\Iseed\\IseedServiceProvider' => __DIR__ . '/..' . '/orangehill/iseed/src/Orangehill/Iseed/IseedServiceProvider.php',
+        'Orangehill\\Iseed\\TableNotFoundException' => __DIR__ . '/..' . '/orangehill/iseed/src/Orangehill/Iseed/Exceptions.php',
         'Override' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/Override.php',
         'PHPUnit\\Event\\Application\\Finished' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Application/Finished.php',
         'PHPUnit\\Event\\Application\\FinishedSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Application/FinishedSubscriber.php',
@@ -7013,6 +7034,7 @@ class ComposerStaticInit10254e7046a0fe7e40f4a6ec59148078
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit10254e7046a0fe7e40f4a6ec59148078::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit10254e7046a0fe7e40f4a6ec59148078::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit10254e7046a0fe7e40f4a6ec59148078::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit10254e7046a0fe7e40f4a6ec59148078::$classMap;
 
         }, null, ClassLoader::class);

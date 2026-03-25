@@ -17,7 +17,7 @@
             </div>
             <span class="text-[#94a3b8] font-medium">Ventas Totales</span>
         </div>
-        <div class="text-3xl font-bold text-[#f1f5f9] tracking-tight">@money($stats['total_sales'])</div>
+        <div class="text-3xl font-bold text-[#f1f5f9] tracking-tight">Bs. {{ number_format($stats['total_sales'], 2) }}</div>
     </div>
 
     <div class="bg-[#1e293b] border border-[#334155] p-6 rounded-3xl shadow-sm">
