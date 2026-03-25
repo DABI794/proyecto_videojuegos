@@ -23,6 +23,9 @@
 /storage/framework/testing/*
 /storage/app/public/products/.gitkeep
 
+# Base de datos
+/database/*.sqlite
+
 # Cache Laravel
 /bootstrap/cache/*.php
 !/bootstrap/cache/.gitignore

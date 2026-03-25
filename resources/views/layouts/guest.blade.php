@@ -17,24 +17,22 @@
     {{-- Vite: Tailwind CSS --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-[#0f172a] text-[#f1f5f9] font-sans min-h-screen flex flex-col justify-center items-center py-10">
+{{-- Cambiamos el bg-[#0f172a] por bg-[#1e293b] para que sea menos oscuro --}}
+<body class="bg-[#1e293b] text-[#f1f5f9] font-sans min-h-screen flex flex-col justify-center items-center py-10">
 
-    {{-- Logo --}}
-    <a href="{{ route('home') }}" class="flex items-center gap-2 mb-8 no-underline hover:opacity-80 transition-opacity">
-        <span class="text-3xl">🎮</span>
-        <span class="text-[#f1f5f9] font-bold text-xl">GameStore</span>
+    {{-- Logo Personalizado --}}
+    <a href="{{ route('home') }}" class="flex flex-col items-center gap-2 mb-8 no-underline hover:opacity-80 transition-all transform hover:scale-105">
+        <span class="text-5xl">🎮</span>
+        <div class="text-center">
+            <span class="block text-[#f1f5f9] font-black text-2xl tracking-tighter">GAMESTORE</span>
+            <span class="block text-[#6366f1] text-xs font-bold tracking-[0.2em] uppercase">Bolivia - Cochabamba</span>
+        </div>
     </a>
 
     {{-- Contenido del formulario --}}
     <div class="w-full max-w-md px-4">
-        {{ $slot }}
+        {{-- Aquí se inyecta el formulario de Login/Register --}}
+        <div class="bg-[#334155]/50 backdrop-blur-sm border border-[#475569] p-8 rounded-2xl shadow-2xl">
+            {{ $slot }}
+        </div>
     </div>
-
-    {{-- Footer mínimo --}}
-    <p class="text-[#64748b] text-xs mt-8">
-        © {{ date('Y') }} GameStore Bolivia
-    </p>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>

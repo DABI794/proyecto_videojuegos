@@ -456,3 +456,6 @@ PAYPAL_CLIENT_ID=          # Client ID de PayPal sandbox
 PAYPAL_CLIENT_SECRET=      # Secret de PayPal sandbox
 PAYPAL_MODE=sandbox        # sandbox | live
 ```
+---
+## Cambio sugerido
+Agrega una sección de "Requisitos de Instalación" donde pongas lo que aprendimos hoy (activar extensión zip, ejecutar composer install, php artisan key:generate).

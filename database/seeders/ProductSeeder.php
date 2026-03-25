@@ -44,12 +44,14 @@ class ProductSeeder extends Seeder
                 ['name' => 'StarCraft II',              'price' => 90.00,  'stock' => 25, 'featured' => false],
                 ['name' => 'Age of Empires IV',         'price' => 170.00, 'stock' => 13, 'featured' => false],
                 ['name' => 'XCOM 3',                    'price' => 160.00, 'stock' => 10, 'featured' => false],
+                ['name' => 'Age of empires II',            'price' => 66.00, 'stock' => 4, 'featured' => false],
             ],
             'Terror' => [
                 ['name' => 'Resident Evil 4 Remake',  'price' => 230.00, 'stock' => 17, 'featured' => true],
                 ['name' => 'Silent Hill 2 Remake',     'price' => 245.00, 'stock' => 9,  'featured' => true],
                 ['name' => 'Alien: Isolation',          'price' => 100.00, 'stock' => 20, 'featured' => false],
                 ['name' => 'Outlast Trials',            'price' => 120.00, 'stock' => 14, 'featured' => false],
+                
             ],
             'Simulación' => [
                 ['name' => 'Microsoft Flight Simulator', 'price' => 270.00, 'stock' => 6, 'featured' => false],

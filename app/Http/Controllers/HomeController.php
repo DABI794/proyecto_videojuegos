@@ -21,10 +21,9 @@ class HomeController extends Controller
             ->get();
 
         $categories = Category::active()
-            ->withCount(['products' => fn($q) => $q->active()])
-            ->has('products')
+            ->whereHas('products', fn($q) => $q->active()) // Esto filtra que tengan productos activos
+            ->withCount(['products' => fn($q) => $q->active()]) // Esto trae el número
             ->get();
-
 
         $latestProducts = Product::with('category')
             ->active()

@@ -1,30 +1,34 @@
 @extends('layouts.app')
-@section('title', 'GameStore Bolivia — Videojuegos y Accesorios')
+@section('title', 'Bienvenida por Carlos — Videojuegos y Accesorios')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 @section('content')
 
 {{-- Hero --}}
-<section class="relative overflow-hidden bg-[#0f172a] pt-10 pb-20">
-    <div class="absolute inset-0 bg-gradient-to-br from-[#6366f1]/10 via-transparent to-transparent pointer-events-none"></div>
+{{-- Cambiamos bg-[#0f172a] por bg-surface-darkest (tu verde oliva) --}}
+<section class="relative overflow-hidden bg-surface-darkest pt-10 pb-20">
+    <div class="absolute inset-0 bg-gradient-to-br from-brand/10 via-transparent to-transparent pointer-events-none"></div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center max-w-3xl mx-auto">
-            <span class="inline-block text-[#6366f1] text-sm font-medium bg-[#6366f1]/10 border border-[#6366f1]/20 px-4 py-1.5 rounded-full mb-6">
-                🎮 La mejor tienda gaming de Bolivia
+            {{-- Cambiamos los bordes y texto al amarillo 'brand' --}}
+            <span class="inline-block text-brand text-sm font-medium bg-brand/10 border border-brand/20 px-4 py-1.5 rounded-full mb-6">
+                🎮 La mejor tienda gaming de Bolivia creada por carlitos
             </span>
             <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#f1f5f9] leading-tight mb-6">
                 Juegos, Consolas<br>
-                <span class="text-[#6366f1]">y Accesorios</span>
+                {{-- Aquí aplicamos el color brand (amarillo) --}}
+                <span class="text-brand">y Accesorios</span>
             </h1>
-            <p class="text-[#94a3b8] text-lg mb-8 leading-relaxed">
+            <p class="text-slate-400 text-lg mb-8 leading-relaxed">
                 Encontrá los últimos lanzamientos y los clásicos que nunca pasan de moda. Envíos a todo Bolivia.
             </p>
             <div class="flex flex-col sm:flex-row gap-3 justify-center">
-                <a href="{{ route('products.index') }}" class="bg-[#6366f1] hover:bg-[#4f46e5] text-white font-semibold px-8 py-3.5 rounded-xl no-underline transition-all hover:-translate-y-0.5">
+                {{-- Botón principal con tus nuevos colores --}}
+                <a href="{{ route('products.index') }}" class="bg-brand hover:bg-brand-hover text-black font-semibold px-8 py-3.5 rounded-xl no-underline transition-all hover:-translate-y-0.5">
                     Ver catálogo
                 </a>
                 @guest
-                    <a href="{{ route('register') }}" class="bg-[#1e293b] hover:bg-[#334155] border border-[#334155] text-[#f1f5f9] font-semibold px-8 py-3.5 rounded-xl no-underline transition-all hover:-translate-y-0.5">
+                    <a href="{{ route('register') }}" class="bg-surface-dark hover:bg-surface-medium border border-surface-medium text-white font-semibold px-8 py-3.5 rounded-xl no-underline transition-all hover:-translate-y-0.5">
                         Crear cuenta
                     </a>
                 @endguest
