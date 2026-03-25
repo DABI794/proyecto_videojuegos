@@ -8,16 +8,13 @@
                 <span class="text-2xl">🎮</span>
                 <span class="text-[#f1f5f9] font-semibold">GameStore</span>
             </a>
-            {{-- Mejora de accesibilidad: se agregan atributos ARIA para mejorar navegación y soporte de lectores de
-            pantalla --}}
+
             {{-- Nav links (desktop) --}}
             <div class="hidden md:flex items-center gap-6">
-                {{-- Enlaces móviles con estado activo para mantener consistencia con la navegación desktop --}}
                 <a href="{{ route('home') }}"
                     class="block px-3 py-2 text-sm no-underline transition-colors {{ request()->routeIs('home') ? 'text-[#6366f1] font-medium' : 'text-[#94a3b8] hover:text-[#f1f5f9]' }}">
                     Inicio
                 </a>
-
                 <a href="{{ route('products.index') }}"
                     class="block px-3 py-2 text-sm no-underline transition-colors {{ request()->routeIs('products.*') ? 'text-[#6366f1] font-medium' : 'text-[#94a3b8] hover:text-[#f1f5f9]' }}">
                     Productos
@@ -49,46 +46,49 @@
                 </form>
 
                 @auth
-                    {{-- Carrito --}}
+                    {{-- Carrito — $cartCount viene del View::composer en AppServiceProvider --}}
                     <a href="{{ route('cart.index') }}" aria-label="Ver carrito" title="Carrito"
                         class="relative p-2 text-[#94a3b8] hover:text-[#f1f5f9] transition-colors no-underline">
                         <i class="bi bi-bag text-xl"></i>
-
                         <span id="carrito-badge"
                             class="absolute -top-0.5 -right-0.5 bg-[#6366f1] text-white text-xs font-bold rounded-full w-5 h-5 inline-flex items-center justify-center"
                             style="{{ $cartCount > 0 ? '' : 'display:none' }}">{{ $cartCount }}</span>
                     </a>
 
-                    {{-- Usuario --}}
-                    {{-- Dropdown de usuario controlado con Alpine.js para evitar JS inline y mejorar mantenibilidad --}}
-                    <div class="relative" x-data="{ open: false }">
-                        <button @click="open = !open" type="button" aria-haspopup="true" :aria-expanded="open.toString()"
+                    {{-- Usuario — dropdown con Alpine.js --}}
+                    <div class="relative" x-data="{ open: false }" @click.away="open = false">
+                        <button @click="open = !open" type="button"
+                            aria-haspopup="true" :aria-expanded="open.toString()"
                             class="flex items-center gap-2 bg-[#1e293b] border border-[#334155] rounded-xl px-3 py-2 text-sm text-[#94a3b8] hover:text-[#f1f5f9] hover:border-[#475569] transition-all">
                             <i class="bi bi-person-circle"></i>
                             <span class="hidden sm:inline max-w-[100px] truncate">{{ auth()->user()->name }}</span>
-                            <i class="bi bi-chevron-down text-xs"></i>
+                            <i class="bi bi-chevron-down text-xs transition-transform duration-200" :class="open ? 'rotate-180' : ''"></i>
                         </button>
 
-
-
-                        {{-- Menú desplegable: se muestra con x-show y se cierra al hacer clic fuera --}}
-                        <div x-show="open" @click.away="open = false" x-transition
-                            class="absolute right-0 mt-2 w-48 bg-[#1e293b] border border-[#334155] rounded-xl shadow-xl overflow-hidden z-50">
+                        {{-- Dropdown con transiciones de main --}}
+                        <div x-show="open"
+                            x-transition:enter="transition ease-out duration-200"
+                            x-transition:enter-start="opacity-0 translate-y-2"
+                            x-transition:enter-end="opacity-100 translate-y-0"
+                            x-transition:leave="transition ease-in duration-150"
+                            x-transition:leave-start="opacity-100 translate-y-0"
+                            x-transition:leave-end="opacity-0 translate-y-2"
+                            class="absolute right-0 mt-3 w-56 bg-[#1e293b] border border-[#334155] rounded-2xl shadow-2xl overflow-hidden z-50 p-2">
                             <a href="{{ route('orders.index') }}"
-                                class="flex items-center gap-2 px-4 py-3 text-sm text-[#94a3b8] hover:bg-[#334155] hover:text-[#f1f5f9] no-underline transition-colors">
+                                class="flex items-center gap-3 px-4 py-3 text-sm text-[#94a3b8] hover:bg-[#334155] hover:text-[#f1f5f9] no-underline transition-all rounded-xl">
                                 <i class="bi bi-receipt"></i> Mis pedidos
                             </a>
                             @if(auth()->user()->isAdmin())
                                 <a href="{{ route('admin.dashboard') }}"
-                                    class="flex items-center gap-2 px-4 py-3 text-sm text-[#6366f1] hover:bg-[#334155] no-underline transition-colors">
+                                    class="flex items-center gap-3 px-4 py-3 text-sm text-[#6366f1] hover:bg-[#6366f1]/10 rounded-xl no-underline transition-all">
                                     <i class="bi bi-speedometer2"></i> Panel admin
                                 </a>
                             @endif
-                            <div class="border-t border-[#334155]"></div>
+                            <div class="border-t border-[#334155] my-2"></div>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <button type="submit"
-                                    class="w-full flex items-center gap-2 px-4 py-3 text-sm text-red-400 hover:bg-[#334155] transition-colors bg-transparent border-0 text-left">
+                                    class="w-full flex items-center gap-3 px-4 py-3 text-sm text-red-400 hover:bg-red-500/10 rounded-xl transition-all bg-transparent border-0 text-left cursor-pointer">
                                     <i class="bi bi-box-arrow-right"></i> Cerrar sesión
                                 </button>
                             </form>
@@ -116,41 +116,34 @@
 
         {{-- Mobile menu --}}
         <div id="mobile-menu" class="hidden md:hidden border-t border-[#334155] py-3 space-y-1">
-            {{-- Enlaces móviles con estado activo para mantener consistencia con la navegación desktop --}}
             <a href="{{ route('home') }}"
                 class="block px-3 py-2 text-sm no-underline transition-colors {{ request()->routeIs('home') ? 'text-[#6366f1] font-medium' : 'text-[#94a3b8] hover:text-[#f1f5f9]' }}">
                 Inicio
             </a>
-
             <a href="{{ route('products.index') }}"
                 class="block px-3 py-2 text-sm no-underline transition-colors {{ request()->routeIs('products.*') ? 'text-[#6366f1] font-medium' : 'text-[#94a3b8] hover:text-[#f1f5f9]' }}">
                 Productos
             </a>
-
             <form action="{{ route('products.index') }}" method="GET" class="px-3 py-2">
                 <input type="text" name="buscar" placeholder="Buscar juegos..." aria-label="Buscar juegos"
                     class="w-full bg-[#1e293b] border border-[#334155] text-[#f1f5f9] text-sm rounded-xl px-3 py-2 focus:outline-none focus:border-[#6366f1]">
             </form>
 
             @auth
-                {{-- Opciones de usuario en mobile para mantener paridad con desktop --}}
                 <a href="{{ route('cart.index') }}"
                     class="block px-3 py-2 text-sm text-[#94a3b8] hover:text-[#f1f5f9] no-underline transition-colors">
                     Carrito
                 </a>
-
                 <a href="{{ route('orders.index') }}"
                     class="block px-3 py-2 text-sm text-[#94a3b8] hover:text-[#f1f5f9] no-underline transition-colors">
                     Mis pedidos
                 </a>
-
                 @if(auth()->user()->isAdmin())
                     <a href="{{ route('admin.dashboard') }}"
                         class="block px-3 py-2 text-sm text-[#6366f1] hover:text-[#818cf8] no-underline transition-colors">
                         Panel admin
                     </a>
                 @endif
-
                 <form method="POST" action="{{ route('logout') }}" class="px-3 py-2">
                     @csrf
                     <button type="submit"
@@ -159,12 +152,10 @@
                     </button>
                 </form>
             @else
-                {{-- Acciones de autenticación visibles también en mobile --}}
                 <a href="{{ route('login') }}"
                     class="block px-3 py-2 text-sm text-[#94a3b8] hover:text-[#f1f5f9] no-underline transition-colors">
                     Iniciar sesión
                 </a>
-
                 <a href="{{ route('register') }}"
                     class="block mx-3 mt-2 text-center text-sm bg-[#6366f1] hover:bg-[#4f46e5] text-white px-4 py-2 rounded-xl no-underline transition-colors font-medium">
                     Registrarse

@@ -342,7 +342,8 @@ pending → paid → processing → shipped → delivered
 
 ## Instalación y configuración
 
-### Requisitos
+Para una guía detallada de instalación en Ubuntu Linux, consulta el archivo [INSTALLATION.md](file:///home/cesar/Documentos/proyecto_videojuegos/INSTALLATION.md).
+
 
 - PHP 8.2+
 - Composer 2.x

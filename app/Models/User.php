@@ -73,6 +73,19 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
+    /**
+     * Obtener las órdenes más recientes con sus ítems cargados.
+     */
+    public function latestOrders(int $limit = 10)
+    {
+        return $this->orders()
+            ->with(['items.product.category'])
+            ->latest()
+            ->take($limit)
+            ->get();
+    }
+
+
     // -------------------------------------------------------------------------
     // Helpers de carrito
     // -------------------------------------------------------------------------
@@ -94,4 +107,10 @@ class User extends Authenticatable
             ->join('products', 'cart_items.product_id', '=', 'products.id')
             ->sum(\DB::raw('cart_items.quantity * products.price'));
     }
+
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class);
+    }
 }
+

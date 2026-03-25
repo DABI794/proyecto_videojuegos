@@ -22,8 +22,9 @@ class HomeController extends Controller
 
         $categories = Category::active()
             ->withCount(['products' => fn($q) => $q->active()])
-            ->having('products_count', '>', 0)
+            ->has('products')
             ->get();
+
 
         $latestProducts = Product::with('category')
             ->active()

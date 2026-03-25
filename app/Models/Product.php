@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Traits\HasPriceFormatting;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,7 +16,7 @@ use Illuminate\Support\Str;
 
 class Product extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, HasPriceFormatting;
 
     protected $fillable = [
         'category_id',
@@ -105,8 +106,9 @@ class Product extends Model
      */
     public function getFormattedPriceAttribute(): string
     {
-        return 'Bs. ' . number_format((float) $this->price, 2, '.', ',');
+        return $this->formatPrice($this->price);
     }
+
 
     // -------------------------------------------------------------------------
     // Scopes
@@ -157,5 +159,15 @@ class Product extends Model
     public function getRouteKeyName(): string
     {
         return 'slug';
+    }
+
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    public function averageRating(): float
+    {
+        return (float) $this->reviews()->avg('rating');
     }
 }
