@@ -4,76 +4,72 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Variables del proyecto original (AGENTS.md) ─────────────────────────── */
+/* ── Variables ajustadas (Menos oscuras) ────────────────────────────────── */
 :root {
   --primary-color:   #6366f1;
   --primary-hover:   #4f46e5;
   --primary-light:   #818cf8;
-  --bg-darkest:      #0f172a;
-  --bg-dark:         #1e293b;
-  --bg-medium:       #334155;
-  --border-color:    #334155;
-  --border-hover:    #475569;
-  --text-primary:    #f1f5f9;
-  --text-secondary:  #94a3b8;
-  --text-muted:      #64748b;
+  
+  /* Cambiamos de Slate-950 (#0f172a) a Slate-900 (#1e293b) */
+  --bg-darkest:      #1e293b; 
+  /* Cambiamos de Slate-900 (#1e293b) a Slate-800 (#334155) */
+  --bg-dark:         #334155; 
+  --bg-medium:       #475569;
+  
+  --border-color:    #475569;
+  --border-hover:    #64748b;
+  --text-primary:    #f8fafc;
+  --text-secondary:  #cbd5e1;
+  --text-muted:      #94a3b8;
   --success:         #10b981;
   --error:           #ef4444;
   --warning:         #f59e0b;
 }
 
-/* ── Bootstrap overrides — tema oscuro ───────────────────────────────────── */
+/* ── Bootstrap overrides — Tema "Soft Dark" ──────────────────────────────── */
 body {
   font-family: 'Inter', sans-serif !important;
-  background-color: #0f172a !important;
-  color: #f1f5f9 !important;
+  background-color: var(--bg-darkest) !important;
+  color: var(--text-primary) !important;
 }
 
 .card {
-  background: #1e293b !important;
-  border: 1px solid #334155 !important;
+  background: var(--bg-dark) !important;
+  border: 1px solid var(--border-color) !important;
   border-radius: 16px !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .form-control,
 .form-select {
-  background: #1e293b !important;
-  border: 1px solid #334155 !important;
-  color: #f1f5f9 !important;
+  background: var(--bg-dark) !important;
+  border: 1px solid var(--border-color) !important;
+  color: var(--text-primary) !important;
   border-radius: 12px !important;
 }
 
 .form-control:focus,
 .form-select:focus {
-  border-color: #6366f1 !important;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15) !important;
-  background: #1e293b !important;
-  color: #f1f5f9 !important;
-}
-
-.form-control::placeholder {
-  color: #64748b !important;
+  border-color: var(--primary-color) !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2) !important;
+  background: var(--bg-dark) !important;
 }
 
 .btn-primary {
-  background-color: #6366f1 !important;
-  border-color: #6366f1 !important;
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
   border-radius: 10px !important;
+  font-weight: 600;
 }
 
 .btn-primary:hover {
-  background-color: #4f46e5 !important;
-  border-color: #4f46e5 !important;
+  background-color: var(--primary-hover) !important;
   transform: translateY(-2px);
-}
-
-/* ── Transiciones globales ────────────────────────────────────────────────── */
-a, button {
-  transition: all 0.2s ease;
+  box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
 }
 
 /* ── Scrollbar personalizado ─────────────────────────────────────────────── */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: #0f172a; }
-::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #475569; }
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-darkest); }
+::-webkit-scrollbar-thumb { background: var(--bg-medium); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--border-hover); }
