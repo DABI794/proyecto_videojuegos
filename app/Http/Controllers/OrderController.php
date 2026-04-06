@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderConfirmationMail;
 use App\Models\Order;
 use App\Models\OrderItem;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 
 class OrderController extends Controller
@@ -48,7 +51,7 @@ class OrderController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $user      = auth()->user();
+        $user = auth()->user();
         $cartItems = $user->cartItems()->with('product')->get();
 
         // Validar que el carrito no esté vacío
@@ -68,30 +71,29 @@ class OrderController extends Controller
         DB::transaction(function () use ($user, $cartItems, $request) {
             // Calcular totales
             $subtotal = $cartItems->sum(
-                fn($item) => $item->product->price * $item->quantity
+                fn ($item) => $item->product->price * $item->quantity
             );
 
             // Crear la orden
             $order = Order::create([
-                'user_id'  => $user->id,
+                'user_id' => $user->id,
                 'subtotal' => $subtotal,
-                'total'    => $subtotal,
-                'status'   => Order::STATUS_PENDING,
-                'notes'    => $request->get('notes'),
+                'total' => $subtotal,
+                'status' => Order::STATUS_PENDING,
+                'notes' => $request->get('notes'),
             ]);
 
             // Crear los ítems con snapshot de precio y nombre
             foreach ($cartItems as $item) {
                 OrderItem::create([
-                    'order_id'     => $order->id,
-                    'product_id'   => $item->product->id,
+                    'order_id' => $order->id,
+                    'product_id' => $item->product->id,
                     'product_name' => $item->product->name,
                     'product_slug' => $item->product->slug,
-                    'unit_price'   => $item->product->price,
-                    'quantity'     => $item->quantity,
-                    'subtotal'     => $item->product->price * $item->quantity,
+                    'unit_price' => $item->product->price,
+                    'quantity' => $item->quantity,
+                    'subtotal' => $item->product->price * $item->quantity,
                 ]);
-
 
                 // Descontar stock
                 $item->product->decrementStock($item->quantity);
@@ -102,7 +104,7 @@ class OrderController extends Controller
 
             // Enviar email de confirmación
             try {
-                \Illuminate\Support\Facades\Mail::to($user)->send(new \App\Mail\OrderConfirmationMail($order));
+                Mail::to($user)->send(new OrderConfirmationMail($order));
             } catch (\Exception $e) {
                 // Continuar aunque falle el mail en local
             }
@@ -116,6 +118,48 @@ class OrderController extends Controller
 
         return redirect()->route('orders.show', $orderId)
             ->with('success', '¡Pedido creado! Completá el pago para confirmar.');
+    }
+
+    /**
+     * Callback de PayPal cuando el pago es exitoso.
+     */
+    public function paypalSuccess(Request $request, Order $order): JsonResponse
+    {
+        // Verificar que el usuario sea el dueño de la orden
+        abort_if($order->user_id !== auth()->id(), 403);
+
+        // Validar que la orden esté pendiente
+        if ($order->status !== Order::STATUS_PENDING) {
+            return response()->json([
+                'exito' => false,
+                'mensaje' => 'Esta orden ya fue procesada.',
+            ], 422);
+        }
+
+        try {
+            // Actualizar el estado de la orden
+            $order->update([
+                'status' => Order::STATUS_PAID,
+                'paypal_order_id' => $request->input('paypal_order_id'),
+                'paypal_transaction_id' => $request->input('transaction_id'),
+                'paid_at' => now(),
+            ]);
+
+            return response()->json([
+                'exito' => true,
+                'mensaje' => '¡Pago confirmado! Tu pedido ha sido registrado.',
+            ]);
+        } catch (\Exception $e) {
+            \Log::error('Error al procesar pago de PayPal', [
+                'order_id' => $order->id,
+                'error' => $e->getMessage(),
+            ]);
+
+            return response()->json([
+                'exito' => false,
+                'mensaje' => 'Error al procesar el pago. Contactá con soporte.',
+            ], 500);
+        }
     }
 
     /**

@@ -70,7 +70,12 @@
     @if($order->status === 'pending')
         <div class="bg-[#1e293b] border border-[#334155] rounded-2xl p-6 mb-6">
             <h2 class="text-[#f1f5f9] font-semibold mb-4">Completar pago</h2>
+            <p class="text-[#94a3b8] text-sm mb-4">Hacé clic en el botón de PayPal para completar tu compra de forma segura.</p>
             <div id="paypal-button-container"></div>
+            <div id="payment-loading" class="hidden text-center py-4">
+                <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-[#6366f1]"></div>
+                <p class="text-[#94a3b8] text-sm mt-2">Procesando pago...</p>
+            </div>
         </div>
     @endif
 
@@ -90,46 +95,114 @@
         @endif
     </div>
 </div>
+
+{{-- Modales --}}
+<x-notification-modal id="success-modal" type="success" />
+<x-notification-modal id="error-modal" type="error" />
+
 @endsection
 
 @if($order->status === 'pending')
 @push('scripts')
 <script src="https://www.paypal.com/sdk/js?client-id={{ config('services.paypal.client_id') }}&currency=USD"></script>
 <script>
+const paypalButtonContainer = document.getElementById('paypal-button-container');
+const paymentLoading = document.getElementById('payment-loading');
+
 paypal.Buttons({
     createOrder: function(data, actions) {
         return actions.order.create({
             purchase_units: [{
-                amount: { currency_code: 'USD', value: '{{ number_format($order->total /6.96, 2, ".", "") }}' },
+                amount: { 
+                    currency_code: 'USD', 
+                    value: '{{ number_format($order->total / 6.96, 2, ".", "") }}' 
+                },
                 description: 'Pedido #{{ $order->id }} — GameStore Bolivia'
             }]
         });
     },
+    
     onApprove: function(data, actions) {
+        // Mostrar loading
+        paypalButtonContainer.classList.add('hidden');
+        paymentLoading.classList.remove('hidden');
+        
         return actions.order.capture().then(function(details) {
             // Llamar al backend para confirmar el pago
-            fetch('{{ route("paypal.success", $order) }}', {
+            return fetch('{{ route("paypal.success", $order) }}', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json'
                 },
                 body: JSON.stringify({
-                    paypal_order_id: data.orderID
+                    paypal_order_id: data.orderID,
+                    transaction_id: details.purchase_units[0].payments.captures[0].id
                 })
             })
-            .then(res => res.json())
-            .then(data => {
-                if (data.exito) {
-                    window.location.href = '{{ route("orders.show", $order) }}?success=1';
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error('Error en la respuesta del servidor');
                 }
+                return res.json();
+            })
+            .then(data => {
+                paymentLoading.classList.add('hidden');
+                
+                if (data.exito) {
+                    // Mostrar modal de éxito
+                    openNotificationModal(
+                        'success-modal',
+                        '¡Pago Exitoso! 🎉',
+                        data.mensaje || '¡Tu pago ha sido confirmado exitosamente! Tu pedido está siendo procesado.',
+                        () => {
+                            // Recargar la página después de cerrar el modal
+                            window.location.reload();
+                        }
+                    );
+                } else {
+                    // Mostrar modal de error
+                    openNotificationModal(
+                        'error-modal',
+                        'Error en el Pago',
+                        data.mensaje || 'Hubo un problema al procesar tu pago. Por favor, contactá con soporte.'
+                    );
+                    paypalButtonContainer.classList.remove('hidden');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                paymentLoading.classList.add('hidden');
+                paypalButtonContainer.classList.remove('hidden');
+                
+                openNotificationModal(
+                    'error-modal',
+                    'Error de Conexión',
+                    'No se pudo conectar con el servidor. Verificá tu conexión e intentá nuevamente.'
+                );
             });
         });
     },
-
+    
     onError: function(err) {
-        console.error(err);
-        alert('Hubo un error con el pago. Intentá de nuevo.');
+        console.error('PayPal Error:', err);
+        
+        openNotificationModal(
+            'error-modal',
+            'Error en PayPal',
+            'Hubo un error al procesar el pago con PayPal. Por favor, intentá nuevamente o usá otro método de pago.'
+        );
+    },
+    
+    onCancel: function(data) {
+        console.log('PayPal payment cancelled', data);
+        
+        openNotificationModal(
+            'error-modal',
+            'Pago Cancelado',
+            'Cancelaste el pago. Podés intentar nuevamente cuando estés listo.'
+        );
     }
 }).render('#paypal-button-container');
 </script>

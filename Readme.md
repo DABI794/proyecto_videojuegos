@@ -43,6 +43,78 @@ El sistema fue originalmente desarrollado en PHP 8.1 con consultas PDO directas,
 
 ---
 
+## Arquitectura del Sistema
+
+### Tipo de Arquitectura
+El proyecto base utiliza una **arquitectura MVC (Model-View-Controller)** implementada con el framework Laravel 12. Esta arquitectura separa claramente las responsabilidades:
+
+- **Modelos (Models)**: Representan los datos y la lógica de negocio (User, Product, Order, etc.)
+- **Vistas (Views)**: Plantillas Blade que renderizan la interfaz de usuario
+- **Controladores (Controllers)**: Manejan las solicitudes HTTP y coordinan entre modelos y vistas
+
+Adicionalmente, incorpora patrones como **Repository Pattern** en algunos controladores y **Service Layer** para lógica compleja, aunque no está completamente implementado en todas las áreas.
+
+### Módulos y Componentes Principales
+El sistema se divide en los siguientes módulos/componentes:
+
+1. **Autenticación y Autorización**
+   - Login/registro con Laravel Breeze
+   - Middleware para protección de rutas
+   - Roles de usuario (customer/admin)
+
+2. **Catálogo de Productos**
+   - Listado con filtros por categoría
+   - Detalle de producto con reseñas
+   - Búsqueda en tiempo real
+
+3. **Carrito de Compras**
+   - Gestión de ítems con AJAX
+   - Cálculo automático de totales
+   - Persistencia por usuario
+
+4. **Sistema de Pedidos**
+   - Checkout con validación de stock
+   - Integración con PayPal sandbox
+   - Historial de pedidos
+
+5. **Panel de Administración**
+   - CRUD completo de productos
+   - Gestión de imágenes
+   - Dashboard con estadísticas
+
+6. **Sistema de Reseñas**
+   - Comentarios por producto
+   - Validación de una reseña por usuario
+
+7. **Middleware y Seguridad**
+   - Protección CSRF automática
+   - Hashing de contraseñas
+   - Validación de formularios
+
+8. **Vistas y UI**
+   - Layouts Blade con componentes parciales
+   - Estilos con Tailwind CSS
+   - JavaScript con Alpine.js
+
+### Mejoras Arquitectónicas Propuestas
+Para mejorar la mantenibilidad y escalabilidad:
+
+1. **Extraer Lógica de Negocio a Servicios**: Crear clases de servicio (ej. `ProductService`, `OrderService`) para encapsular reglas de negocio complejas, reduciendo la responsabilidad de los controladores.
+
+2. **Implementar Form Request Classes**: Usar `FormRequest` para toda validación de entrada, centralizando reglas y mensajes de error.
+
+3. **Usar Políticas (Policies) en lugar de `abort_if`**: Reemplazar verificaciones manuales de permisos en controladores con políticas de Laravel para autorización más limpia.
+
+4. **Separar Rutas por Módulo**: Organizar rutas en archivos separados (`routes/products.php`, `routes/admin.php`) en lugar de un solo `web.php`.
+
+5. **Aumentar Cobertura de Pruebas**: Implementar pruebas unitarias para modelos y servicios, además de las feature tests existentes.
+
+6. **Implementar Caching**: Usar Redis o cache de Laravel para datos frecuentemente accedidos como categorías y productos destacados.
+
+7. **API RESTful**: Considerar una API separada para futuras integraciones móviles o SPA.
+
+---
+
 ## Proceso de migración y refactorización
 
 ### Origen del proyecto

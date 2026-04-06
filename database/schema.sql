@@ -1,0 +1,2 @@
+-- Esquema de la base de datos
+-- Agrega aquí las declaraciones CREATE TABLE o el esquema NoSQL correspondiente.
