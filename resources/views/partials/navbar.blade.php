@@ -2,35 +2,17 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
 
-            {{-- Logo --}}
-            <a href="{{ route('home') }}"
-                class="flex items-center gap-2 text-white font-bold text-lg no-underline hover:opacity-80 transition-opacity">
-                <span class="text-2xl">🎮</span>
-                <span class="text-[#f1f5f9] font-semibold">GameStore</span>
-            </a>
-
-            {{-- Nav links (desktop) --}}
-            <div class="hidden md:flex items-center gap-6">
+            {{-- Logo y búsqueda --}}
+            <div class="flex items-center gap-4">
+                {{-- Logo --}}
                 <a href="{{ route('home') }}"
-                    class="block px-3 py-2 text-sm no-underline transition-colors {{ request()->routeIs('home') ? 'text-[#6366f1] font-medium' : 'text-[#94a3b8] hover:text-[#f1f5f9]' }}">
-                    Inicio
+                    class="flex items-center gap-3 text-white font-bold text-lg no-underline hover:opacity-80 transition-opacity">
+                    <span class="text-2xl">🎮</span>
+                    <div class="leading-tight">
+                        <span class="block text-[#f1f5f9] font-semibold">GameStore</span>
+                        <span class="block text-xs text-[#94a3b8] uppercase tracking-widest">Bolivia</span>
+                    </div>
                 </a>
-                <a href="{{ route('products.index') }}"
-                    class="block px-3 py-2 text-sm no-underline transition-colors {{ request()->routeIs('products.*') ? 'text-[#6366f1] font-medium' : 'text-[#94a3b8] hover:text-[#f1f5f9]' }}">
-                    Productos
-                </a>
-                @auth
-                    @if(auth()->user()->isAdmin())
-                        <a href="{{ route('admin.dashboard') }}"
-                            class="text-sm no-underline transition-colors {{ request()->routeIs('admin.*') ? 'text-[#6366f1] font-medium' : 'text-[#94a3b8] hover:text-[#f1f5f9]' }}">
-                            Admin
-                        </a>
-                    @endif
-                @endauth
-            </div>
-
-            {{-- Acciones --}}
-            <div class="flex items-center gap-3">
 
                 {{-- Búsqueda rápida --}}
                 <form action="{{ route('products.index') }}" method="GET" class="hidden sm:flex">
@@ -44,6 +26,33 @@
                         </button>
                     </div>
                 </form>
+            </div>
+
+            {{-- Nav links (desktop) --}}
+            <div class="hidden md:flex items-center gap-6">
+                <a href="{{ route('products.index') }}"
+                    @if(request()->routeIs('products.*')) aria-current="page" @endif
+                    class="block px-3 py-2 text-sm no-underline transition-colors {{ request()->routeIs('products.*') ? 'text-[#6366f1] border-b-2 border-[#6366f1] font-medium' : 'text-[#94a3b8] hover:text-[#f1f5f9]' }}">
+                    Productos
+                </a>
+                <a href="{{ route('home') }}"
+                    @if(request()->routeIs('home')) aria-current="page" @endif
+                    class="block px-3 py-2 text-sm no-underline transition-colors {{ request()->routeIs('home') ? 'text-[#6366f1] border-b-2 border-[#6366f1] font-medium' : 'text-[#94a3b8] hover:text-[#f1f5f9]' }}">
+                    Inicio
+                </a>
+                @auth
+                    @if(auth()->user()->isAdmin())
+                        <a href="{{ route('admin.dashboard') }}"
+                            @if(request()->routeIs('admin.*')) aria-current="page" @endif
+                            class="text-sm no-underline transition-colors {{ request()->routeIs('admin.*') ? 'text-[#6366f1] border-b-2 border-[#6366f1] font-medium' : 'text-[#94a3b8] hover:text-[#f1f5f9]' }}">
+                            Admin
+                        </a>
+                    @endif
+                @endauth
+            </div>
+
+            {{-- Acciones --}}
+            <div class="flex items-center gap-3">
 
                 @auth
                     {{-- Carrito — $cartCount viene del View::composer en AppServiceProvider --}}
@@ -117,11 +126,13 @@
         {{-- Mobile menu --}}
         <div id="mobile-menu" class="hidden md:hidden border-t border-[#334155] py-3 space-y-1">
             <a href="{{ route('home') }}"
-                class="block px-3 py-2 text-sm no-underline transition-colors {{ request()->routeIs('home') ? 'text-[#6366f1] font-medium' : 'text-[#94a3b8] hover:text-[#f1f5f9]' }}">
+                @if(request()->routeIs('home')) aria-current="page" @endif
+                class="block px-3 py-2 text-sm no-underline transition-colors {{ request()->routeIs('home') ? 'text-[#6366f1] border-b-2 border-[#6366f1] font-medium' : 'text-[#94a3b8] hover:text-[#f1f5f9]' }}">
                 Inicio
             </a>
             <a href="{{ route('products.index') }}"
-                class="block px-3 py-2 text-sm no-underline transition-colors {{ request()->routeIs('products.*') ? 'text-[#6366f1] font-medium' : 'text-[#94a3b8] hover:text-[#f1f5f9]' }}">
+                @if(request()->routeIs('products.*')) aria-current="page" @endif
+                class="block px-3 py-2 text-sm no-underline transition-colors {{ request()->routeIs('products.*') ? 'text-[#6366f1] border-b-2 border-[#6366f1] font-medium' : 'text-[#94a3b8] hover:text-[#f1f5f9]' }}">
                 Productos
             </a>
             <form action="{{ route('products.index') }}" method="GET" class="px-3 py-2">
@@ -140,7 +151,8 @@
                 </a>
                 @if(auth()->user()->isAdmin())
                     <a href="{{ route('admin.dashboard') }}"
-                        class="block px-3 py-2 text-sm text-[#6366f1] hover:text-[#818cf8] no-underline transition-colors">
+                        @if(request()->routeIs('admin.*')) aria-current="page" @endif
+                        class="block px-3 py-2 text-sm no-underline transition-colors {{ request()->routeIs('admin.*') ? 'text-[#6366f1] border-b-2 border-[#6366f1] font-medium' : 'text-[#6366f1] hover:text-[#818cf8]' }}">
                         Panel admin
                     </a>
                 @endif

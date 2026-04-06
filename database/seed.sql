@@ -1,0 +1,2 @@
+-- Datos iniciales opcionales
+-- Agrega aquí las instrucciones INSERT para poblar la base de datos.
