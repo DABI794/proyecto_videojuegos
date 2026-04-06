@@ -25,9 +25,11 @@ return new class extends Migration
             // Snapshot del producto al momento de la compra
             // (evita que cambios futuros alteren facturas históricas)
             $table->string('product_name', 200);
-            $table->decimal('unit_price', 10, 2);
+            // Cambia la línea 28:
+$table->decimal('price_snapshot', 10, 2);
             $table->unsignedInteger('quantity');
-            $table->decimal('subtotal', 10, 2); // unit_price * quantity
+            // Cambia la línea 30 (opcional, pero mejor para que el comentario sea real):
+$table->decimal('subtotal', 10, 2); // price_snapshot * quantity
 
             $table->timestamps();
         });
